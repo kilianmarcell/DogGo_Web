@@ -1,4 +1,4 @@
-# doggo
+# DogGo
 
 ## Project setup
 ```
