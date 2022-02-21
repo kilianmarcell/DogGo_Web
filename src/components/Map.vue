@@ -19,6 +19,7 @@ export default {
                .then(coordinates => {
                     this.coordinates = coordinates;
                })
+               .catch(error => alert("Kérem engedélyezze az ön helyének meghatározását!"));
      }
 }
 </script>
