@@ -1,27 +1,22 @@
 <template>
-  <div id="app">
-    <Map/>
+  <div>
   </div>
 </template>
 
 <script>
+import Register from './components/authentication/Register.vue'
+import Login from './components/authentication/Login.vue'
 import Map from './components/Map.vue'
 
 export default {
   name: 'App',
   components: {
+    Register,
+    Login,
     Map
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
