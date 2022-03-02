@@ -22,6 +22,19 @@
                     <button @click="deleteLocation(l.id)">Törlés</button>
                 </td>
             </tr>
+            <tr>
+                <td></td>
+                <td><input type="text" v-model="location.name"></td>
+                <td><input type="number" v-model="location.lat"></td>
+                <td><input type="number" v-model="location.lng"></td>
+                <td></td>
+                <td>
+                    <button @click="newLocation" :disabled="saving" v-if="!add_new">Hozzáadás</button>
+                    <button v-if="add_new" @click="saveLocation">Mentés</button>
+                    <br>
+                    <button v-if="add_new" @click="cancelLocation">Mégse</button>
+                </td>
+            </tr>
       </tbody>
   </table>
 </div>
@@ -33,6 +46,16 @@ export default {
     data() {
         return {
             locations: [],
+
+            location: {
+                name: "",
+                lat: null,
+                lng: null,
+                user_id: 1,
+            },
+
+            add_new: false,
+            saving: false
         }
     },
     
@@ -41,12 +64,41 @@ export default {
             let response = await fetch("http://127.0.0.1:8000/api/locations")
             this.locations = await response.json()
         },
+    
+        async newLocation() {
+            this.saving = 'disabled'
+
+            await fetch('http://127.0.0.1:8000/api/locations', {
+                method: 'POST',
+                headers: {
+                'Content-Type' : 'application/json',
+                'Accept' : 'application/json'
+                },
+                body: JSON.stringify(this.location)
+            })
+
+            await this.loadData()
+            
+            this.saving = false
+            this.resetForm()
+        },
 
         async deleteLocation(id) {
-        await fetch(`http://127.0.0.1:8000/api/locations/${id}`, {
-            method: 'DELETE'
-        })
-        await this.loadData()
+            await fetch(`http://127.0.0.1:8000/api/locations/${id}`, {
+                method: 'DELETE'
+            }),
+
+            await this.loadData()
+        },
+
+        resetForm() {
+            this.location = {
+                name: "",
+                lat: null,
+                lng: null,
+            },
+
+            this.add_new = false
         }
     },
 
