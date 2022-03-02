@@ -4,11 +4,11 @@
   <table>
       <thead>
           <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>lat</th>
-            <th>lng</th>
-            <th>user_id</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Lat</th>
+            <th>Lng</th>
+            <th>User id</th>
           </tr>
       </thead>
       <tbody>
@@ -48,16 +48,23 @@ export default {
   h1 {
     text-align: center;
   }
+
   table {
     margin: auto;
     border: 1px solid black;
   }
+
   th {
     padding: 40px 20px 30px 20px;
+    text-align: center;
+    font-size: 20pt;
   }
+
   td {
-    padding: 20px 20px 20px 20px;
+      text-align: center;
+    padding: 20px 100px 20px 100px;
   }
+
   button {
     width: 100%;
   }
