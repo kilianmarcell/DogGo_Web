@@ -18,6 +18,9 @@
                 <td>{{ l.lat }}</td>
                 <td>{{ l.lng }}</td>
                 <td>{{ l.user_id }}</td>
+                <td>
+                    <button @click="deleteLocation(l.id)">Törlés</button>
+                </td>
             </tr>
       </tbody>
   </table>
@@ -32,12 +35,21 @@ export default {
             locations: [],
         }
     },
+    
     methods: {
         async loadData() {
             let response = await fetch("http://127.0.0.1:8000/api/locations")
             this.locations = await response.json()
+        },
+
+        async deleteLocation(id) {
+        await fetch(`http://127.0.0.1:8000/api/locations/${id}`, {
+            method: 'DELETE'
+        })
+        await this.loadData()
         }
     },
+
     mounted() {
         this.loadData()
     }
