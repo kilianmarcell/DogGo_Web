@@ -26,9 +26,15 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="text" v-model="location.name"></td>
-                    <td><input type="number" v-model="location.lat"></td>
-                    <td><input type="number" v-model="location.lng"></td>
+                    <td>
+                        <span :class="{hidden: this.validations.name}">A név mező kitöltése kötelező</span><br>
+                        <input type="text" v-model="location.name"></td>
+                    <td>
+                        <span :class="{hidden: this.validations.lat}">A lat mező kitöltése kötelező</span><br>
+                        <input type="number" v-model="location.lat"></td>
+                    <td>
+                        <span :class="{hidden: this.validations.lng}">A lng mező kitöltése kötelező</span><br>
+                        <input type="number" v-model="location.lng"></td>
                     <td></td>
                     <td>
                         <button @click="newLocation" :disabled="saving" v-if="!add_new">Hozzáadás</button>
@@ -57,6 +63,12 @@ export default {
                 user_id: 1,
             },
 
+            validations: {
+                name: true,
+                lat: true,
+                lng: true
+            },
+
             add_new: false,
             saving: false
         }
@@ -69,21 +81,23 @@ export default {
         },
     
         async newLocation() {
-            this.saving = 'disabled'
+            if (!this.validation()) {
+                this.saving = true
 
-            await fetch('http://127.0.0.1:8000/api/locations', {
-                method: 'POST',
-                headers: {
-                'Content-Type' : 'application/json',
-                'Accept' : 'application/json'
-                },
-                body: JSON.stringify(this.location)
-            })
+                await fetch('http://127.0.0.1:8000/api/locations', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type' : 'application/json',
+                    'Accept' : 'application/json'
+                    },
+                    body: JSON.stringify(this.location)
+                })
 
-            await this.loadData()
-            
-            this.saving = false
-            this.resetForm()
+                await this.loadData()
+                
+                this.saving = false
+                this.resetForm()
+            }
         },
 
         async deleteLocation(id) {
@@ -128,6 +142,7 @@ export default {
             
             this.saving = false
             this.resetForm()
+            this.validation()
         },
 
         cancelLocation() {
@@ -142,6 +157,32 @@ export default {
             },
 
             this.add_new = false
+        },
+
+        validation() {
+            let error = false
+            if (this.location.name === "") {
+                this.validations.name = false
+                error = true
+            } else {
+                this.validations.name = true
+            }
+            
+            if (this.location.lat === null || this.location.lat === "") {
+                this.validations.lat = false
+                error = true
+            } else {
+                this.validations.lat = true
+            }
+            
+            if (this.location.lng === null || this.location.lng === "") {
+                this.validations.lng = false
+                error = true
+            } else {
+                this.validations.lng = true
+            }
+
+            return error
         }
     },
 
@@ -174,5 +215,9 @@ export default {
 
     button {
         width: 100%;
+    }
+
+    .hidden {
+        display: none;
     }
 </style>
