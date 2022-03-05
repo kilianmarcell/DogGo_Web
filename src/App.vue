@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header/>
+    <list/>
   </div>
 </template>
 
