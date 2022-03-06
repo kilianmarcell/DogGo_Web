@@ -202,10 +202,13 @@ export default {
         border: 1px solid black;
     }
 
-    th {
-        padding: 40px 20px 30px 20px;
+    thead {
         text-align: center;
         font-size: 20pt;
+    }
+
+    th {
+        padding: 40px 20px 30px 20px;
     }
 
     td {
