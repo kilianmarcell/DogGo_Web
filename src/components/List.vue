@@ -95,15 +95,6 @@ export default {
 
                 this.saving = true
 
-                //await fetch('http://127.0.0.1:8000/api/locations', {
-                //    method: 'POST',
-                //    headers: {
-                //    'Content-Type' : 'application/json',
-                //    'Accept' : 'application/json'
-                //    },
-                //    body: JSON.stringify(this.location)
-                //})
-
                 await axios
                     .post('http://127.0.0.1:8000/api/locations', this.location)
                     .catch(error => console.log(error))
@@ -116,10 +107,6 @@ export default {
         },
 
         async deleteLocation(id) {
-            //await fetch(`http://127.0.0.1:8000/api/locations/${id}`, {
-            //    method: 'DELETE'
-            //}),
-
             await axios
                 .delete(`http://127.0.0.1:8000/api/locations/${id}`)
 
@@ -131,6 +118,10 @@ export default {
             let response = await fetch(`http://127.0.0.1:8000/api/locations/${id}`)
             let data = await response.json()
             this.location = {...data}
+
+            await axios
+                .put(`http://127.0.0.1:8000/api/locations/${id}`, this.location)
+                .catch(error => console.log(error))
 
             /*
             
