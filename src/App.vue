@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header/>
+    <Map></Map>
   </div>
 </template>
 

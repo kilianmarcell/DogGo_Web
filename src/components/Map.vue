@@ -41,7 +41,6 @@
                     })
                     .catch(error => alert(error));
             }
-
             if(localStorage.zoom) {
                 this.zoom = parseInt(localStorage.zoom);
             }
@@ -56,7 +55,6 @@
                     lng: this.map.getCenter().lng()
                 };
                 let zoom = this.map.getZoom();
-
                 localStorage.center = JSON.stringify(center);
                 localStorage.zoom = zoom;
             }
@@ -69,7 +67,6 @@
                         lng: 0
                     };
                 }
-
                 return {
                     lat: this.map.getCenter().lat().toFixed(4),
                     lng: this.map.getCenter().lng().toFixed(4)
