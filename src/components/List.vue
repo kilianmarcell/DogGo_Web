@@ -88,6 +88,7 @@ export default {
             await axios
                 .get('http://127.0.0.1:8000/api/locations')
                 .then(response => (this.locations = response.data))
+                .catch(error => console.log(error))
         },
     
         async newLocation() {
@@ -109,6 +110,7 @@ export default {
         async deleteLocation(id) {
             await axios
                 .delete(`http://127.0.0.1:8000/api/locations/${id}`)
+                .catch(error => console.log(error))
 
             await this.loadData()
         },
@@ -116,41 +118,18 @@ export default {
         async editLocation(id) {
             this.add_new = true
             let response = await fetch(`http://127.0.0.1:8000/api/locations/${id}`)
-            let data = await response.json()
-            this.location = {...data}
-
-            await axios
-                .put(`http://127.0.0.1:8000/api/locations/${id}`, this.location)
-                .catch(error => console.log(error))
-
-            /*
-            
-            this.location = {...data} -> ha a egyik tag változik, a másik is változik "szinkronizálva vannak",
-            ugyan az az objektum
-
-            ha simán this.location = data -> akkor a location a data referenciája
-
-            ... -> akkor új objektumot csinál a data-ból
-            
-            */
+            this.location = await response.json()
         },
 
         async saveLocation() {
             this.saving = 'disabled'
 
-            await fetch(`http://127.0.0.1:8000/api/locations/${this.location.id}`, {
-                method: 'PATCH',
-                headers: {
-                'Content-Type' : 'application/json',
-                'Accept' : 'application/json'
-                },
-                body: JSON.stringify(this.location)
-            })
+            await axios
+                .patch(`http://127.0.0.1:8000/api/locations/${this.location.id}`, this.location)
 
             await this.loadData()
-            
-            this.saving = false
             this.resetForm()
+            this.saving = false
         },
 
         cancelLocation() {
@@ -170,6 +149,7 @@ export default {
 
         validation() {
             let error = false
+            
             if (this.location.name === "") {
                 this.validations.name = false
                 error = true
