@@ -68,6 +68,7 @@ export default {
                 lat: null,
                 lng: null,
                 description: "",
+                user_id: 1
             },
 
             validations: {
@@ -94,14 +95,18 @@ export default {
 
                 this.saving = true
 
-                await fetch('http://127.0.0.1:8000/api/locations', {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type' : 'application/json',
-                    'Accept' : 'application/json'
-                    },
-                    body: JSON.stringify(this.location)
-                })
+                //await fetch('http://127.0.0.1:8000/api/locations', {
+                //    method: 'POST',
+                //    headers: {
+                //    'Content-Type' : 'application/json',
+                //    'Accept' : 'application/json'
+                //    },
+                //    body: JSON.stringify(this.location)
+                //})
+
+                await axios
+                    .post('http://127.0.0.1:8000/api/locations', this.location)
+                    .catch(error => console.log(error))
 
                 await this.loadData()
                 
@@ -111,9 +116,12 @@ export default {
         },
 
         async deleteLocation(id) {
-            await fetch(`http://127.0.0.1:8000/api/locations/${id}`, {
-                method: 'DELETE'
-            }),
+            //await fetch(`http://127.0.0.1:8000/api/locations/${id}`, {
+            //    method: 'DELETE'
+            //}),
+
+            await axios
+                .delete(`http://127.0.0.1:8000/api/locations/${id}`)
 
             await this.loadData()
         },
