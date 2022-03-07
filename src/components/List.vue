@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Helyek</h1>
+        <h1>Locations</h1>
     <table>
         <thead>
             <tr>
@@ -8,7 +8,7 @@
                 <th>Name</th>
                 <th>Lat</th>
                 <th>Lng</th>
-                <th>User id</th>
+                <th>Description</th>
             </tr>
         </thead>
         <tbody>
@@ -17,7 +17,7 @@
                     <td>{{ l.name }}</td>
                     <td>{{ l.lat }}</td>
                     <td>{{ l.lng }}</td>
-                    <td>{{ l.user_id }}</td>
+                    <td>{{ l.description }}</td>
                     <td>
                         <button @click="deleteLocation(l.id)">Törlés</button>
                         <br>
@@ -28,14 +28,19 @@
                     <td></td>
                     <td>
                         <span :class="{hidden: this.validations.name}">A név mező kitöltése kötelező</span><br>
-                        <input type="text" v-model="location.name"></td>
+                        <input type="text" v-model="location.name">
+                    </td>
                     <td>
                         <span :class="{hidden: this.validations.lat}">A lat mező kitöltése kötelező</span><br>
-                        <input type="number" v-model="location.lat"></td>
+                        <input type="number" v-model="location.lat">
+                    </td>
                     <td>
                         <span :class="{hidden: this.validations.lng}">A lng mező kitöltése kötelező</span><br>
-                        <input type="number" v-model="location.lng"></td>
-                    <td></td>
+                        <input type="number" v-model="location.lng">
+                    </td>
+                    <td>
+                        <span :class="{hidden: this.validations.description}">A description mező kitöltése kötelező</span><br>
+                        <input type="text" v-model="location.description"></td>
                     <td>
                         <button @click="newLocation" :disabled="saving" v-if="!add_new">Hozzáadás</button>
                         <button v-if="add_new" @click="saveLocation">Mentés</button>
@@ -49,6 +54,8 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
     name: 'List',
 
@@ -60,13 +67,14 @@ export default {
                 name: "",
                 lat: null,
                 lng: null,
-                user_id: 1,
+                description: "",
             },
 
             validations: {
                 name: true,
                 lat: true,
-                lng: true
+                lng: true,
+                description: true,
             },
 
             add_new: false,
@@ -76,12 +84,14 @@ export default {
     
     methods: {
         async loadData() {
-            let response = await fetch("http://127.0.0.1:8000/api/locations")
-            this.locations = await response.json()
+            await axios
+                .get('http://127.0.0.1:8000/api/locations')
+                .then(response => (this.locations = response.data))
         },
     
         async newLocation() {
             if (!this.validation()) {
+
                 this.saving = true
 
                 await fetch('http://127.0.0.1:8000/api/locations', {
@@ -142,7 +152,6 @@ export default {
             
             this.saving = false
             this.resetForm()
-            this.validation()
         },
 
         cancelLocation() {
@@ -154,6 +163,7 @@ export default {
                 name: "",
                 lat: null,
                 lng: null,
+                description: "",
             },
 
             this.add_new = false
@@ -182,6 +192,13 @@ export default {
                 this.validations.lng = true
             }
 
+            if (this.location.description === null || this.location.description === "") {
+                this.validations.description = false
+                error = true
+            } else {
+                this.validations.description = true
+            }
+
             return error
         }
     },
@@ -198,6 +215,7 @@ export default {
     }
 
     table {
+        width: 95%;
         margin: auto;
         border: 1px solid black;
     }
@@ -208,12 +226,12 @@ export default {
     }
 
     th {
-        padding: 40px 20px 30px 20px;
+        padding: 10px 5px 10px 5px;
     }
 
     td {
         text-align: center;
-        padding: 20px 100px 20px 100px;
+        padding: 10px 5px 10px 5px;
     }
 
     button {
