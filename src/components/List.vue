@@ -142,6 +142,7 @@ export default {
                 lat: null,
                 lng: null,
                 description: "",
+                user_id: 1
             },
 
             this.add_new = false
