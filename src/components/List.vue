@@ -27,19 +27,19 @@
                 <tr>
                     <td></td>
                     <td>
-                        <span :class="{hidden: this.validations.name}">A név mező kitöltése kötelező</span><br>
+                        <span :class="{hidden: this.validations.name}">A név mező kitöltése kötelező, a név legalább 5 karakter legyen!</span><br>
                         <input type="text" v-model="location.name">
                     </td>
                     <td>
-                        <span :class="{hidden: this.validations.lat}">A lat mező kitöltése kötelező</span><br>
+                        <span :class="{hidden: this.validations.lat}">A lat mező kitöltése kötelező!</span><br>
                         <input type="number" v-model="location.lat">
                     </td>
                     <td>
-                        <span :class="{hidden: this.validations.lng}">A lng mező kitöltése kötelező</span><br>
+                        <span :class="{hidden: this.validations.lng}">A lng mező kitöltése kötelező!</span><br>
                         <input type="number" v-model="location.lng">
                     </td>
                     <td>
-                        <span :class="{hidden: this.validations.description}">A description mező kitöltése kötelező</span><br>
+                        <span :class="{hidden: this.validations.description}">A description mező kitöltése kötelező!</span><br>
                         <input type="text" v-model="location.description"></td>
                     <td>
                         <button @click="newLocation" :disabled="saving" v-if="!add_new">Hozzáadás</button>
@@ -68,6 +68,7 @@ export default {
                 lat: null,
                 lng: null,
                 description: "",
+                allowed: false,
                 user_id: 1
             },
 
@@ -142,6 +143,7 @@ export default {
                 lat: null,
                 lng: null,
                 description: "",
+                allowed: false,
                 user_id: 1
             },
 
@@ -151,7 +153,7 @@ export default {
         validation() {
             let error = false
             
-            if (this.location.name === "") {
+            if (this.location.name === "" || this.location.name.length < 5) {
                 this.validations.name = false
                 error = true
             } else {

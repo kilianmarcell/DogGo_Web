@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Register/>
+    <Header/>
+    <List/>
   </div>
 </template>
 
