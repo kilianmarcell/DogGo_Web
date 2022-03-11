@@ -29,7 +29,6 @@ export default {
             await axios
                 .post('http://127.0.0.1:8000/api/login', this.data)
                 .then(response => (this.token = response.data.token))
-                .catch(this.token)
                 .catch(error => console.log(error))
 
                 axios
