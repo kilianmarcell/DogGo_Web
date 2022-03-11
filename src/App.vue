@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header/>
-    <List/>
+    <Login/>
   </div>
 </template>
 
