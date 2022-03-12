@@ -1,7 +1,7 @@
 <template>
     <div class="d-grid gap-3 col-3 mx-auto mt-5">
-        <input type="text" v-model="user.username" placeholder="username">
-        <input type="password" v-model="user.password" placeholder="password">
+        <input type="text" v-model="data.username" placeholder="username">
+        <input type="password" v-model="data.password" placeholder="password">
         <button class="btn btn-primary" @click="login">Login</button>
         <button class="btn btn-primary" @click="kiir">kiir</button>
     </div>
@@ -14,7 +14,7 @@ export default {
     name: 'Login',
     data() {
         return {
-            user: {
+            data: {
                 username: "",
                 password: ""
             },
@@ -28,7 +28,7 @@ export default {
         async login() {
             await axios
                 .post('http://127.0.0.1:8000/api/login', this.data)
-                .then(response => (this.token = response.user.token))
+                .then(response => (this.token = response.data.token))
                 .catch(error => console.log(error))
 
                 axios
@@ -50,7 +50,7 @@ export default {
         },
 
         reset() {
-            this.user = {
+            this.data = {
                 email: "",
                 password: ""
             }
