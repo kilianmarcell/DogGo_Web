@@ -1,10 +1,10 @@
 <template>
-    <div>
-        <input type="text" v-model="data.name" placeholder="name">
-        <input type="email" v-model="data.email" placeholder="email">
-        <input type="password" v-model="data.password" placeholder="password">
-        <button @click="register">Register</button>
-        <button @click="kiir">kiir</button>
+    <div class="d-grid gap-3 col-3 mx-auto mt-5">
+        <input type="text" v-model="user.username" placeholder="username">
+        <input type="email" v-model="user.email" placeholder="email">
+        <input type="password" v-model="user.password" placeholder="password">
+        <button class="btn btn-primary" @click="register">Register</button>
+        <button class="btn btn-primary" @click="kiir">kiir</button>
     </div>
 </template>
 
@@ -12,11 +12,11 @@
 import axios from "axios"
 
 export default {
-    name: 'Login',
+    name: 'Register',
     data() {
         return {
-            data: {
-                name: "",
+            user: {
+                username: "",
                 email: "",
                 password: ""
             },
@@ -39,8 +39,8 @@ export default {
         },
 
         reset() {
-            this.data = {
-                name: "",
+            this.user = {
+                username: "",
                 email: "",
                 password: ""
             }
@@ -50,5 +50,7 @@ export default {
 </script>
 
 <style>
-
+    .btn {
+        
+    }
 </style>

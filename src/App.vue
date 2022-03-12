@@ -2,6 +2,7 @@
   <div>
     <Header/>
     <Login/>
+    <Register/>
   </div>
 </template>
 
