@@ -25,12 +25,13 @@
                               <li class="nav-item">
                                    <a class="nav-link" href="#"><fa :icon="['fas', 'envelope']"/></a>
                               </li>
-                              <li class="nav-item">
+                              <li v-if="isLoggedIn" class="nav-item">
                                    <a class="nav-link" href="#"><fa :icon="['fas', 'cog']"/></a>
                               </li>
-                              <li class="nav-item">
-                                   <a class="nav-link" href="#"><fa :icon="['fas', 'sign-in-alt']"/></a>
+                              <li v-if="!isLoggedIn" class="nav-item">
+                                   <a class="nav-link" href="/list"><fa :icon="['fas', 'sign-in-alt']"/></a>
                               </li>
+                              
                          </ul>
                     </div>
                </div>
@@ -40,7 +41,13 @@
 
 <script>
 export default {
-     name: 'Header'
+     name: 'Header',
+
+     data() {
+          return {
+               isLoggedIn: false
+          }
+     }
 }
 </script>
 
