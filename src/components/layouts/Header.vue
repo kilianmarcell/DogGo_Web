@@ -2,8 +2,10 @@
      <div>
           <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                <div class="container-fluid mx-5">
-                    <img src="../../assets/DogGoLogo.png" id="logo" class="img-fluid rounded" alt="">
-                    <a class="navbar-brand fs-1" href="">DogGo</a>
+                    <div class="md-auto d-flex align-items-center">
+                         <img src="../../assets/DogGoLogo.png" id="logo" class="img-fluid rounded" alt="DogGo logo">
+                         <a class="navbar-brand fs-1" href="">DogGo</a>
+                    </div>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                          <span class="navbar-toggler-icon"></span>
