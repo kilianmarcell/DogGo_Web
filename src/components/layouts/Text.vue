@@ -1,0 +1,36 @@
+<template>
+     <div class="text-wrapper p-5">
+          <div class="text-inner fs-3">
+               Különböző forrásokból hallani, ismerősöktől, közösségi médiából azt, hogy egy adott helyre elvihetik kedvenceiket. Ennek ellenére mégsem tudunk sok véleményt meghallgatni, olvasni az adott helyekről. Ez az alkalmazás ennek a problémának a megoldására kínál lehetőséget.
+               Egy olyan alkalmazást készítünk, ahova az emberek leírhatják véleményüket a közelükben lévő, számukra jelentéssel bíró helyekről. Ha más ember is hallaná a pozitív tapasztalatokat az adott helyről, tudná, hogy milyen kutyás emberek járnak milyen helyekre, lehet, hogy ő is elmenne és kipróbálni a mások által megjelölt helyeket.
+               A másik fő célunk ezzel az alkalmazással az, hogy kutyás csoportokat, társaságokat hozzunk létre. A helyek értékelésével, leírásával az emberek kapcsolatba léphetnek egymással, motiválhatják egymást, hogy kimozduljanak otthonról kiskedvenceikkel.
+               Ezek a tulajdonságok, amelyek egyedivé teszik ezt a programot. Nincs másik program egyelőre, ami akár csak egy délutáni kutyasétáltatást összehozna más emberekkel.
+          </div>
+     </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+     .text-wrapper {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          text-align: justify;
+     }
+
+     .text-inner {
+          width: 70%;
+          margin: auto;
+          background: #7F77C6;
+          color: #FFFFFF;
+          box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+          padding: 40px 55px 45px 55px;
+          border-radius: 15px;
+          transition: all .3s;
+     }
+</style>

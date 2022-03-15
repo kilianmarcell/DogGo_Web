@@ -4,15 +4,15 @@
 
 <script>
 export default {
-     props: ['user'],
+     props: ['data'],
      methods: {
           kiir() {
-               console.log(user)
+               console.log(data)
           }
      },
      mounted() {
-          let user = this.$route.params.user;
-          console.log("data is", user);
+          let data = this.$route.params.data;
+          console.log("data is", data);
      }
 }
 </script>

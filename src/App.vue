@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div id="page">
     <Header/>
-    <Register/>
-    <Login/>
-    <UserDatas/>
+    <div id="middle">
+      <Text/>
+    </div>
+    <Footer/>
   </div>
 </template>
 
@@ -14,6 +15,8 @@ import Register from './components/authentication/Register.vue'
 import Login from './components/authentication/Login.vue'
 import Map from './components/parts/Map.vue'
 import UserDatas from './components/parts/UserDatas.vue'
+import Footer from './components/layouts/Footer.vue'
+import Text from './components/layouts/Text.vue'
 
 export default {
   name: 'App',
@@ -23,12 +26,23 @@ export default {
     Register,
     Login,
     Map,
-    UserDatas
+    UserDatas,
+    Footer,
+    Text
   }
 }
 </script>
 
 <style>
+  #page {
+    background: linear-gradient(50deg, #7cc6c3, #86C232, #f9dc71);
+  }
+
+  #middle {
+    width: 80%;
+    margin: auto;
+  }
+
   #nav {
     padding: 30px;
   }
