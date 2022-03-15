@@ -39,7 +39,7 @@ export default {
   }
 
   #middle {
-    width: 80%;
+    width: 90%;
     margin: auto;
   }
 
