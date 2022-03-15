@@ -4,6 +4,7 @@
         <input type="password" v-model="data.password" placeholder="password">
         <button class="btn btn-primary" @click="login">Login</button>
         <button class="btn btn-primary" @click="kiir">kiir</button>
+        <h2>{{ user.username }}</h2>
     </div>
 </template>
 
@@ -18,7 +19,11 @@ export default {
                 username: "",
                 password: ""
             },
-            user: {},
+            user: {
+                id: null,
+                email: "",
+                username: ""
+            },
             token: "",
             isLogging: false
         }
@@ -41,7 +46,13 @@ export default {
                       }
                     })
                     .then(response => {
-                      console.log(response.data)
+                      this.user = response.data
+                      console.log(this.user)
+                    })
+
+                    this.$router.push({
+                        name: "UserDatas",
+                        params: { user }
                     })
         },
 
