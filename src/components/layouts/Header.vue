@@ -22,11 +22,14 @@
                               <li class="nav-item">
                                    <router-link to="/info" class="nav-link"><fa :icon="['fas', 'question']"/></router-link>
                               </li>
-                              <li v-if="!isLoggedIn" class="nav-item">
+                              <li v-if="!user" class="nav-item">
                                    <router-link to="/register" class="nav-link"><fa :icon="['fas', 'sign-in']"/></router-link>
                               </li>
-                              <li v-if="isLoggedIn" class="nav-item">
+                              <li v-if="user" class="nav-item">
                                    <a class="nav-link" href="#"><fa :icon="['fas', 'user']"/></a>
+                              </li>
+                              <li v-if="user" class="nav-item">
+                                   <a class="nav-link" href="#"><fa @click="signOut" :icon="['fas', 'sign-out']"/></a>
                               </li>
                               
                          </ul>
@@ -39,10 +42,18 @@
 <script>
 export default {
      name: 'Header',
+     props: ['user'],
 
      data() {
           return {
                isLoggedIn: false
+          }
+     },
+
+     methods: {
+          signOut() {
+               localStorage.removeItem('token')
+               this.$router.push({ name: "Home" })
           }
      }
 }

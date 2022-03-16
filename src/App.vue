@@ -1,11 +1,12 @@
 <template>
   <div id="page">
-    <Header/>
-      <router-view/>
+    <Header :user="user" />
+      <router-view :user="user" /> <!--user adatot átadjuk (passzoljuk) a gyerek komponenseknek-->
   </div>
 </template>
 
 <script>
+import axios from "axios"
 import Header from './components/layouts/Header.vue'
 import UserDatas from './components/parts/UserDatas.vue'
 import Text from './components/layouts/Text.vue'
@@ -18,6 +19,29 @@ export default {
     UserDatas,
     Text,
     Map
+  },
+
+  data() {
+      return {
+            user: null
+      }
+  },
+
+  methods: {
+      async getUserDatas() {
+            axios
+                .request({
+                  url: 'api/user',
+                  method: 'get'
+                })
+                .then(response => {
+                  this.user = response.data
+                })
+      }
+  },
+  
+  mounted() {
+      this.getUserDatas()
   }
 }
 </script>
