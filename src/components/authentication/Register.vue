@@ -10,7 +10,7 @@
         <input type="password" class="fs-5" v-model="registerUser.password" placeholder="jelszó">
         
         <div class="pt-3">
-            <button class="btn btn-primary w-100 fs-5" @click="login">Regisztrálás</button>
+            <button class="btn btn-primary w-100 fs-5" @click="register">Regisztrálás</button>
         </div>
 
         <div class="text-end fs-6">
@@ -44,7 +44,9 @@ export default {
                 .then(console.log(this.registerUser))
                 .catch(error => console.log(error))
 
-            this.reset()
+                this.$router.push({
+                    name: "Login"
+                })
         },
 
         kiir() {
