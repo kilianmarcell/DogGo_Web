@@ -2,7 +2,7 @@
   <div id="page">
     <Header/>
     <div id="middle">
-      <Text/>
+      <router-view/>
     </div>
     <Footer/>
   </div>
