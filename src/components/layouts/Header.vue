@@ -17,9 +17,6 @@
                                    <router-link to="/" class="nav-link"><fa :icon="['fas', 'home']"/></router-link>
                               </li>
                               <li class="nav-item">
-                                   <a class="nav-link" href="#"><fa :icon="['fas', 'share-alt']"/></a>
-                              </li>
-                              <li class="nav-item">
                                    <a class="nav-link" href="https://github.com/kilianmarcell/DogGo_Web"><fa :icon="['fas', 'code']"/></a>
                               </li>
                               <li class="nav-item">

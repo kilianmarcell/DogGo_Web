@@ -1,7 +1,7 @@
 <template>
   <footer class="d-flex justify-content-center align-items-center fs-5 w-100 border-top-5">
        <div>
-          Elérhetőségek:
+          <u>Elérhetőségek:</u>
           <ul>
                <li>Email: <i>infodoggo@gmail.com</i></li>
                <li>Telefon: <i>-</i></li>
