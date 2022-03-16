@@ -15,7 +15,8 @@
     "vue": "^3.0.0",
     "vue-axios": "^3.4.1",
     "vue-browser-geolocation": "^1.8.0",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-router": "~4.5.15",
