@@ -7,7 +7,7 @@
         <input type="text" class="fs-5" v-model="data.username" placeholder="felhasználónév">
         <input type="password" class="fs-5" v-model="data.password" placeholder="jelszó">
 
-        <div>
+        <div class="pt-3">
             <router-link to="/" class="btn btn-primary w-50 fs-5">Vissza</router-link>
             <button class="btn btn-primary w-50 fs-5" @click="login">Bejelentkezés</button>
         </div>

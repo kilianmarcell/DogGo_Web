@@ -1,17 +1,17 @@
 <template>
     <div class="d-grid gap-3 col-3 mx-auto mt-5 text-inner">
 
-        <div class="text-decoration-underline fs-3 text-center pb-3">
+        <div class="text-decoration-underline fs-2 text-center pb-3">
             Regisztráció
         </div>
 
-        <input type="text" v-model="registerUser.username" placeholder="username">
-        <input type="email" v-model="registerUser.email" placeholder="email">
-        <input type="password" v-model="registerUser.password" placeholder="password">
+        <input type="text" class="fs-5" v-model="registerUser.username" placeholder="felhasználónév">
+        <input type="email" class="fs-5" v-model="registerUser.email" placeholder="email">
+        <input type="password" class="fs-5" v-model="registerUser.password" placeholder="jelszó">
         
-        <div>
-            <router-link to="/" class="btn btn-primary w-50">Vissza</router-link>
-            <button class="btn btn-primary w-50" @click="login">Regisztrálás</button>
+        <div class="pt-3">
+            <router-link to="/" class="btn btn-primary w-50 fs-5">Vissza</router-link>
+            <button class="btn btn-primary w-50 fs-5" @click="login">Regisztrálás</button>
         </div>
 
         <div class="text-end fs-6">
