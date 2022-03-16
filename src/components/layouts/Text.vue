@@ -16,21 +16,5 @@ export default {
 </script>
 
 <style>
-     .text-wrapper {
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
-          text-align: justify;
-     }
-
-     .text-inner {
-          width: 70%;
-          margin: auto;
-          background: #474B4F;
-          color: #FFFFFF;
-          box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-          padding: 40px 55px 45px 55px;
-          border-radius: 15px;
-          transition: all .3s;
-     }
+     
 </style>

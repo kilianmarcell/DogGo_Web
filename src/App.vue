@@ -38,16 +38,20 @@ export default {
     margin: auto;
   }
 
-  #nav {
-    padding: 30px;
+  .text-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: justify;
   }
 
-  #nav a {
-    font-weight: bold;
-    color: #2c3e50;
-  }
-
-  #nav a.router-link-exact-active {
-    color: black;
+  .text-inner {
+    margin: auto;
+    background: #222629;
+    color: #FFFFFF;
+    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+    padding: 40px 55px 45px 55px;
+    border-radius: 15px;
+    transition: all .3s;
   }
 </style>
