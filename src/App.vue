@@ -1,7 +1,7 @@
 <template>
   <div id="page">
-    <Header :user="user" />
-      <router-view :user="user" /> <!--user adatot átadjuk (passzoljuk) a gyerek komponenseknek-->
+    <Header/>
+      <router-view/>
   </div>
 </template>
 
@@ -29,14 +29,13 @@ export default {
 
   methods: {
       async getUserDatas() {
-            axios
-                .request({
-                  url: 'api/user',
-                  method: 'get'
-                })
-                .then(response => {
-                  this.user = response.data
-                })
+        axios
+            .request({
+              url: 'api/user',
+              method: 'get'
+            })
+            
+        this.$store.dispatch('user', response.data)
       }
   },
   

@@ -46,10 +46,8 @@ export default {
                 .catch(error => console.log(error))
 
                 localStorage.setItem('token', this.token)
-                
-                this.$router.push({
-                    name: "Home"
-                })
+                this.$store.dispatch('user', response.data.user)
+                this.$router.push({ name: "Home" })
         },
 
         reset() {

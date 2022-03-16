@@ -50,9 +50,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
      name: 'Header',
-     props: ['user'],
 
      data() {
           return {
@@ -65,6 +66,10 @@ export default {
                localStorage.removeItem('token')
                this.$router.push({ name: "Home" })
           }
+     },
+
+     computed: {
+          ...mapGetters(['user'])
      }
 }
 </script>
