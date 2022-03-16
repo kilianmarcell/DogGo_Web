@@ -10,8 +10,7 @@
         <input type="password" class="fs-5" v-model="registerUser.password" placeholder="jelszó">
         
         <div class="pt-3">
-            <router-link to="/" class="btn btn-primary w-50 fs-5">Vissza</router-link>
-            <button class="btn btn-primary w-50 fs-5" @click="login">Regisztrálás</button>
+            <button class="btn btn-primary w-100 fs-5" @click="login">Regisztrálás</button>
         </div>
 
         <div class="text-end fs-6">
