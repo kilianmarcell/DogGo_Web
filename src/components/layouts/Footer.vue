@@ -1,5 +1,5 @@
 <template>
-  <footer class="d-flex justify-content-center align-items-center fs-5">
+  <footer class="d-flex justify-content-center align-items-center fs-5 w-100 border-top-5">
        <div>
           Elérhetőségek:
           <ul>
@@ -21,5 +21,7 @@ export default {
           background: #222629;
           color: #FFFFFF;
           height: 150px;
+          position: fixed;
+          bottom: 0;
      }
 </style>

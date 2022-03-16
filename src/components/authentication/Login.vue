@@ -53,8 +53,7 @@ export default {
                     })
 
                     this.$router.push({
-                        name: "UserDatas",
-                        params: { user }
+                        name: "Home"
                     })
         },
 

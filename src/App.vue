@@ -28,12 +28,13 @@ export default {
 </script>
 
 <style>
-  #page {
-    background: linear-gradient(50deg, #86C232, #86C232, #61892F);
+  body {
+    height: 100vh;
+    background: linear-gradient(120deg, #86C232, #61892F);
   }
 
   #middle {
-    width: 90%;
+    width: 95%;
     margin: auto;
   }
 
