@@ -45,24 +45,11 @@ export default {
                 .then(response => (this.token = response.data.token))
                 .catch(error => console.log(error))
 
-                axios
-                    .request({
-                      url: 'api/user',
-                      method: 'get',
-                      headers: {
-                          'Authorization': 'Bearer ' + this.token
-                      }
-                    })
-                    .then(response => {
-                      this.user = response.data
-                      console.log(this.user)
-                    })
-
-                    localStorage.setItem('token', this.token)
-
-                    this.$router.push({
-                        name: "Home"
-                    })
+                localStorage.setItem('token', this.token)
+                
+                this.$router.push({
+                    name: "Home"
+                })
         },
 
         reset() {
