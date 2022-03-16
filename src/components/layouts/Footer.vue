@@ -3,8 +3,8 @@
        <div>
           Elérhetőségek:
           <ul>
-               <li>Email: infodoggo@gmail.com</li>
-               <li>Telefon: -</li>
+               <li>Email: <i>infodoggo@gmail.com</i></li>
+               <li>Telefon: <i>-</i></li>
           </ul>
        </div>
   </footer>
@@ -18,7 +18,7 @@ export default {
 
 <style>
      footer {
-          background-color: rgba(54, 51, 51);
+          background: #222629;
           color: #FFFFFF;
           height: 150px;
      }

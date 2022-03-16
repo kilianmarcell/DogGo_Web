@@ -35,7 +35,7 @@ export default {
 
 <style>
   #page {
-    background: linear-gradient(50deg, #7cc6c3, #86C232, #f9dc71);
+    background: linear-gradient(50deg, #86C232, #86C232, #61892F);
   }
 
   #middle {

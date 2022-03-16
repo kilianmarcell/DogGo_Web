@@ -26,7 +26,7 @@ export default {
      .text-inner {
           width: 70%;
           margin: auto;
-          background: #7f77c6;
+          background: #474B4F;
           color: #FFFFFF;
           box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
           padding: 40px 55px 45px 55px;
