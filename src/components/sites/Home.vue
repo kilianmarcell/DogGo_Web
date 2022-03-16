@@ -1,20 +1,19 @@
 <template>
      <Text/>
+     <Footer/>
 </template>
 
 <script>
 import Text from '../layouts/Text.vue'
 import Map from '../parts/Map.vue'
+import Footer from '../layouts/Footer.vue'
 
 export default {
      name: 'Home',
      components: {
           Text,
-          Map
+          Map,
+          Footer
      }
 }
 </script>
-
-<style>
-
-</style>

@@ -1,18 +1,18 @@
 <template>
   <footer class="d-flex justify-content-center align-items-center fs-5 w-100 border-top-5">
        <div>
-          <u>Elérhetőségek:</u>
-          <ul>
-               <li>Email: <i>infodoggo@gmail.com</i></li>
-               <li>Telefon: <i>-</i></li>
-          </ul>
+          <p><u class="fs-4">Elérhetőségek:</u></p>
+               <p>
+                    <fa :icon="['fas', 'envelope']"/> <i>infodoggo@gmail.com</i><br>
+                    <fa :icon="['fas', 'phone']"/> <i>+36 30 275 6435</i>
+               </p>
        </div>
   </footer>
 </template>
 
 <script>
 export default {
-
+     name: 'Footer'
 }
 </script>
 

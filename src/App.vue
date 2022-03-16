@@ -1,10 +1,7 @@
 <template>
   <div id="page">
     <Header/>
-    <div id="middle">
       <router-view/>
-    </div>
-    <Footer/>
   </div>
 </template>
 
@@ -13,7 +10,6 @@ import Header from './components/layouts/Header.vue'
 import UserDatas from './components/parts/UserDatas.vue'
 import Text from './components/layouts/Text.vue'
 import Map from './components/parts/Map.vue'
-import Footer from './components/layouts/Footer.vue'
 
 export default {
   name: 'App',
@@ -21,8 +17,7 @@ export default {
     Header,
     UserDatas,
     Text,
-    Map,
-    Footer
+    Map
   }
 }
 </script>
@@ -31,11 +26,6 @@ export default {
   body {
     height: 100vh;
     background: linear-gradient(180deg, #86C232, #61892F);
-  }
-
-  #middle {
-    width: 95%;
-    margin: auto;
   }
 
   .text-wrapper {
