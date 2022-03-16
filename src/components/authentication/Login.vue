@@ -2,8 +2,10 @@
     <div class="d-grid gap-3 col-3 mx-auto mt-5">
         <input type="text" v-model="data.username" placeholder="username">
         <input type="password" v-model="data.password" placeholder="password">
-        <button class="btn btn-primary" @click="login">Login</button>
-        <button class="btn btn-primary" @click="kiir">kiir</button>
+        <div>
+            <router-link to="/" class="btn btn-primary w-50">Vissza</router-link>
+            <button class="btn btn-primary w-50" @click="login">Bejelentkezés</button>
+        </div>
         <h2>{{ user.username }}</h2>
     </div>
 </template>
@@ -54,10 +56,6 @@ export default {
                         name: "UserDatas",
                         params: { user }
                     })
-        },
-
-        kiir() {
-            console.log(this.token)
         },
 
         reset() {

@@ -26,7 +26,7 @@
                                    <a class="nav-link" href="#"><fa :icon="['fas', 'envelope']"/></a>
                               </li>
                               <li v-if="!isLoggedIn" class="nav-item">
-                                   <a class="nav-link" href="#"><fa :icon="['fas', 'sign-in-alt']"/></a>
+                                   <router-link to="/login" class="nav-link"><fa :icon="['fas', 'sign-in-alt']"/></router-link>
                               </li>
                               <li v-if="isLoggedIn" class="nav-item">
                                    <a class="nav-link" href="#"><fa :icon="['fas', 'user']"/></a>
