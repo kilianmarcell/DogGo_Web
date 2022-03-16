@@ -24,7 +24,7 @@ export default {
 
 <style>
   body {
-    height: 100vh;
+    height: 100em;
     background: linear-gradient(180deg, #86C232, #61892F);
   }
 

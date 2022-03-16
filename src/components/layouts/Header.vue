@@ -20,7 +20,7 @@
                                    <a class="nav-link" href="https://github.com/kilianmarcell/DogGo_Web"><fa :icon="['fas', 'code']"/></a>
                               </li>
                               <li class="nav-item">
-                                   <a class="nav-link" href="#"><fa :icon="['fas', 'envelope']"/></a>
+                                   <router-link to="/info" class="nav-link"><fa :icon="['fas', 'question']"/></router-link>
                               </li>
                               <li v-if="!isLoggedIn" class="nav-item">
                                    <router-link to="/register" class="nav-link"><fa :icon="['fas', 'sign-in']"/></router-link>
