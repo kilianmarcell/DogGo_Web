@@ -39,7 +39,7 @@ export default {
     methods: {
         async register() {
             await axios
-                .post('http://127.0.0.1:8000/api/register', this.registerUser)
+                .post('api/register', this.registerUser)
                 .then(response => (this.registerUser = response))
                 .then(console.log(this.registerUser))
                 .catch(error => console.log(error))

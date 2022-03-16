@@ -41,15 +41,14 @@ export default {
     methods: {
         async login() {
             await axios
-                .post('http://127.0.0.1:8000/api/login', this.data)
+                .post('api/login', this.data)
                 .then(response => (this.token = response.data.token))
                 .catch(error => console.log(error))
 
                 axios
                     .request({
-                      url: '/api/user',
+                      url: 'api/user',
                       method: 'get',
-                      baseURL: 'http://127.0.0.1:8000',
                       headers: {
                           'Authorization': 'Bearer ' + this.token
                       }
