@@ -4,7 +4,7 @@
                <div class="container-fluid mx-5">
                     <div class="md-auto d-flex align-items-center">
                          <img src="../../assets/DogGoLogo.png" id="logo" class="img-fluid rounded" alt="DogGo logo">
-                         <a class="navbar-brand fs-1" href="">DogGo</a>
+                         <router-link to="/" class="nav-link navbar-brand fs-1">DogGo</router-link>
                     </div>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

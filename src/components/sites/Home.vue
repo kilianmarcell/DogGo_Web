@@ -1,4 +1,5 @@
 <template>
+     <h2 v-if="user">Hi, {{ user.username }}</h2>
      <Text/>
      <Footer/>
 </template>
@@ -13,11 +14,7 @@ export default {
      name: 'Home',
      data() {
           return {
-               user: {
-                    id: null,
-                    email: "",
-                    username: ""
-               }
+               user: null
           }
      },
      components: {
@@ -35,7 +32,6 @@ export default {
                     })
                     .then(response => {
                       this.user = response.data
-                      console.log(this.user)
                     })
           }
      },
