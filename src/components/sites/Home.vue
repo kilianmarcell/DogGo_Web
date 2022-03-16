@@ -1,5 +1,4 @@
 <template>
-     <h2 v-if="user">Hi, {{ user.username }}</h2>
      <Text/>
      <Footer/>
 </template>

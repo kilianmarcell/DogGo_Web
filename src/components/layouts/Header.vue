@@ -25,11 +25,21 @@
                               <li v-if="!user" class="nav-item">
                                    <router-link to="/register" class="nav-link"><fa :icon="['fas', 'sign-in']"/></router-link>
                               </li>
-                              <li v-if="user" class="nav-item">
-                                   <a class="nav-link" href="#"><fa :icon="['fas', 'user']"/></a>
+                              <li v-if="user" class="nav-item dropdown">
+                                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ user.username }} <fa :icon="['fas', 'user']"/>
+                                   </a>
+                                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="#">Adatok módosíása</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="#">Kijelentkezés</a></li>
+                                   </ul>
+                              </li>
+                              <li class="nav-item">
+                                   <a class="nav-link" href="#"></a>
                               </li>
                               <li v-if="user" class="nav-item">
-                                   <a class="nav-link" href="#"><fa @click="signOut" :icon="['fas', 'sign-out']"/></a>
+                                   
                               </li>
                               
                          </ul>
