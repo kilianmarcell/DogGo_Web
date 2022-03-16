@@ -31,10 +31,7 @@ export default {
                 axios
                     .request({
                       url: 'api/user',
-                      method: 'get',
-                      headers: {
-                          'Authorization': 'Bearer ' + localStorage.getItem('token')
-                      }
+                      method: 'get'
                     })
                     .then(response => {
                       this.user = response.data
