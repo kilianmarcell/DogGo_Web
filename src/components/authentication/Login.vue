@@ -59,6 +59,8 @@ export default {
                       console.log(this.user)
                     })
 
+                    localStorage.setItem('token', this.token)
+
                     this.$router.push({
                         name: "Home"
                     })

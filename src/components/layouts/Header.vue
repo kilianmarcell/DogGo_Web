@@ -1,6 +1,6 @@
 <template>
      <div>
-          <nav id="navbar" class="navbar navbar-expand-lg navbar-dark ">
+          <nav id="navbar" class="navbar navbar-expand-lg navbar-dark">
                <div class="container-fluid mx-5">
                     <div class="md-auto d-flex align-items-center">
                          <img src="../../assets/DogGoLogo.png" id="logo" class="img-fluid rounded" alt="DogGo logo">
