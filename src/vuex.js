@@ -29,4 +29,4 @@ const store = createStore({
 
 const app = createApp({ /* your root component */ })
 
-app.use(store)
+export default store
