@@ -1,7 +1,6 @@
 <template>
   <div id="page">
     <Header/>
-    <h2>{{ this.user }}</h2>
       <router-view/>
   </div>
 </template>
@@ -30,15 +29,13 @@ export default {
 
   methods: {
       async getUserDatas() {
-        axios
+        let response = await axios
             .request({
               url: 'api/user',
               method: 'get'
             })
-            .then(response => { this.user = response.data })
-            .then(console.log(this.user))
             
-        this.$store.dispatch('user', this.user)
+        this.$store.dispatch('user', response.data)
       }
   },
   
