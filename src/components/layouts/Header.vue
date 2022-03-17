@@ -27,7 +27,7 @@
                               </li>
                               <li v-if="user" class="nav-item dropdown">
                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {{ user.username }} <fa :icon="['fas', 'user']"/>
+                                        {{ $store.state.user.username }} <fa :icon="['fas', 'user']"/>
                                    </a>
                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <li><a class="dropdown-item" href="#">Adatok módosíása</a></li>

@@ -34,8 +34,9 @@ export default {
               url: 'api/user',
               method: 'get'
             })
+            .then(response => { this.user = response.data })
             
-        this.$store.dispatch('user', response.data)
+        this.$store.dispatch('user', this.user)
       }
   },
   
