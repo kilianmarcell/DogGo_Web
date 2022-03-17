@@ -48,13 +48,6 @@ export default {
                 localStorage.setItem('token', this.token)
                 this.$store.dispatch('user', this.user)
                 this.$router.push({ name: "Home" })
-        },
-
-        reset() {
-            this.data = {
-                email: "",
-                password: ""
-            }
         }
     }
 }

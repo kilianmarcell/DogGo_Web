@@ -1,6 +1,7 @@
 <template>
   <div id="page">
     <Header/>
+    <h2>{{ this.user }}</h2>
       <router-view/>
   </div>
 </template>
@@ -35,6 +36,7 @@ export default {
               method: 'get'
             })
             .then(response => { this.user = response.data })
+            .then(console.log(this.user))
             
         this.$store.dispatch('user', this.user)
       }
