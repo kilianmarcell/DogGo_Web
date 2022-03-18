@@ -46,9 +46,8 @@ export default {
 </script>
 
 <style>
-  body {
-    height: 100vh;
-    background: linear-gradient(180deg, #86C232, #61892F);
+  #page {
+    background: linear-gradient(120deg, #86C232, #61892F);
   }
 
   .text-wrapper {
