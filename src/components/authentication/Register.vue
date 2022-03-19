@@ -42,11 +42,11 @@ export default {
         const rules = computed(() => {
             return {
                 registerUser: {
-                    username: { required },
-                    email: { required },
-                    password: { required }
+                    username: { required, minLength: minLength(5), maxLength: maxLength(20) },
+                    email: { required, email, maxLength: maxLength(255) },
+                    password: { required, minLength: minLength(8) }
                 },
-                confirmPassword: { required }
+                confirmPassword: { required, sameAs: sameAs(this.state.registerUser.password) }
             }
         })
 
