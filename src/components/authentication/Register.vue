@@ -5,10 +5,10 @@
             Regisztráció
         </div>
 
-        <input type="text" class="fs-5" v-model="this.registerUser.username" placeholder="Felhasználónév">
-        <input type="email" class="fs-5" v-model="this.registerUser.email" placeholder="Email">
-        <input type="password" class="fs-5" v-model="this.registerUser.password" placeholder="Jelszó">
-        <input type="password" class="fs-5" v-model="this.confirmPassword" placeholder="Jelszó ismét">
+        <input type="text" class="fs-5" v-model="this.state.registerUser.username" placeholder="Felhasználónév">
+        <input type="email" class="fs-5" v-model="this.state.registerUser.email" placeholder="Email">
+        <input type="password" class="fs-5" v-model="this.state.registerUser.password" placeholder="Jelszó">
+        <input type="password" class="fs-5" v-model="this.state.confirmPassword" placeholder="Jelszó ismét">
         
         <div class="pt-3">
             <button class="btn btn-primary w-100 fs-5" @click="register">Regisztrálás</button>
@@ -23,19 +23,38 @@
 <script>
 import axios from "axios"
 import useValidate from "@vuelidate/core"
-import { required } from "@vuelidate/validators"
+import { required, minLength, maxLength, email, sameAs } from "@vuelidate/validators"
+import { reactive, computed } from "vue"
 
 export default {
     name: 'Register',
-    data() {
-        return {
-            v$: useValidate(),
+
+    setup() {
+        const state = reactive({
             registerUser: {
                 username: "",
                 email: "",
                 password: ""
             },
             confirmPassword: ""
+        })
+
+        const rules = computed(() => {
+            return {
+                registerUser: {
+                    username: { required },
+                    email: { required },
+                    password: { required }
+                },
+                confirmPassword: { required }
+            }
+        })
+
+        const v$ = useValidate(rules, state)
+
+        return {
+            state,
+            v$
         }
     },
 
