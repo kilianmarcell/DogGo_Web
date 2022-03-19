@@ -5,9 +5,10 @@
             Regisztráció
         </div>
 
-        <input type="text" class="fs-5" v-model="registerUser.username" placeholder="felhasználónév">
-        <input type="email" class="fs-5" v-model="registerUser.email" placeholder="email">
-        <input type="password" class="fs-5" v-model="registerUser.password" placeholder="jelszó">
+        <input type="text" class="fs-5" v-model="this.registerUser.username" placeholder="Felhasználónév">
+        <input type="email" class="fs-5" v-model="this.registerUser.email" placeholder="Email">
+        <input type="password" class="fs-5" v-model="this.registerUser.password" placeholder="Jelszó">
+        <input type="password" class="fs-5" v-model="this.confirmPassword" placeholder="Jelszó ismét">
         
         <div class="pt-3">
             <button class="btn btn-primary w-100 fs-5" @click="register">Regisztrálás</button>
@@ -21,18 +22,20 @@
 
 <script>
 import axios from "axios"
+import useValidate from "@vuelidate/core"
+import { required } from "@vuelidate/validators"
 
 export default {
     name: 'Register',
     data() {
         return {
+            v$: useValidate(),
             registerUser: {
                 username: "",
                 email: "",
                 password: ""
             },
-
-            isLogging: false,
+            confirmPassword: ""
         }
     },
 

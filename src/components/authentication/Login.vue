@@ -4,8 +4,8 @@
             Bejelentkezés
         </div>
 
-        <input type="text" class="fs-5" v-model="data.username" placeholder="felhasználónév">
-        <input type="password" class="fs-5" v-model="data.password" placeholder="jelszó">
+        <input type="text" class="fs-5" v-model="this.data.username" placeholder="felhasználónév">
+        <input type="password" class="fs-5" v-model="this.data.password" placeholder="jelszó">
 
         <div class="pt-3">
             <button class="btn btn-primary w-100 fs-5" @click="login">Bejelentkezés</button>
@@ -19,11 +19,14 @@
 
 <script>
 import axios from "axios"
+import useValidate from "@vuelidate/core"
+import { required } from "@vuelidate/validators"
 
 export default {
     name: 'Login',
     data() {
         return {
+            v$: useValidate(),
             data: {
                 username: "",
                 password: ""
