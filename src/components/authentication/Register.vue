@@ -8,15 +8,24 @@
         <div class="container">
             <div class="row mb-2">
                 <label class="fs-5 p-0">Felhasználónév</label>
-                <input type="text" class="fs-5" v-model="state.registerUser.username" placeholder="Felhasználónév">
-                <span v-if="v$.email.error">
-                    {{ v$.email.$errors[0].$message }}
+                <input type="text"
+                    class="fs-5"
+                    v-model="this.state.registerUser.username"
+                    placeholder="Felhasználónév">
+                <span v-if="v$.registerUser.username.$error"> <!--$error = logikai változó-->
+                    {{ v$.registerUser.username.$errors[0].$message }} <!--$errors = tömb-->
                 </span>
             </div>
 
             <div class="row mb-2">
                 <label class="fs-5 p-0">Email</label>
-                <input type="email" class="fs-5" v-model="this.state.registerUser.email" placeholder="Email">
+                <input type="email"
+                    class="fs-5"
+                    v-model="this.state.registerUser.email"
+                    placeholder="Email">
+                <span v-if="v$.registerUser.email.$error"> <!--$error = logikai változó-->
+                    {{ v$.registerUser.email.$errors[0].$message }} <!--$errors = tömb-->
+                </span>
             </div>
 
             <div class="row mb-2">
@@ -79,7 +88,9 @@ export default {
 
     methods: {
         async register() {
-            await axios
+            this.v$.$validate()
+            if (!this.v$.$error) {
+                await axios
                 .post('api/register', this.registerUser)
                 .then(response => (this.registerUser = response))
                 .then(console.log(this.registerUser))
@@ -88,6 +99,7 @@ export default {
                 this.$router.push({
                     name: "Login"
                 })
+            }
         },
 
         kiir() {

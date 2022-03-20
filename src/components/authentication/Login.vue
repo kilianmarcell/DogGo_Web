@@ -28,14 +28,11 @@
 
 <script>
 import axios from "axios"
-import useVuelidate from "@vuelidate/core"
-import { required, minLength } from "@vuelidate/validators"
 
 export default {
     name: 'Login',
     data() {
         return {
-            v$: useVuelidate(),
             data: {
                 username: "",
                 password: ""
@@ -47,21 +44,6 @@ export default {
             },
             token: "",
             isLogging: false
-        }
-    },
-
-    validations() {
-        return {
-            form: {
-                username: { 
-                    required, name_validation: {
-                        $validator: validUsername,
-                        $message: 'Invalid Name. Valid name only contain letters, dashes (-) and spaces'
-                    } 
-                },
-                email: { required, email },
-                password: { required, min: minLength(8) },
-            },
         }
     },
 
