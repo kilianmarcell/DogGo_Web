@@ -3,10 +3,17 @@
         <div class="text-decoration-underline fs-2 text-center pb-3">
             Bejelentkezés
         </div>
+        <div class="container">
+            <div class="row mb-2">
+                <label class="fs-5 p-0">Felhasználónév</label>
+                <input type="text" class="fs-5" placeholder="Felhasználónév">
+            </div>
 
-        <input type="text" class="fs-5" v-model="this.data.username" placeholder="felhasználónév">
-        <input type="password" class="fs-5" v-model="this.data.password" placeholder="jelszó">
-
+            <div class="row">
+                <label class="fs-5 p-0">Jelszó</label>
+                <input type="password" class="fs-5" placeholder="Jelszó">
+            </div>
+        </div>
         <div class="pt-3">
             <button class="btn btn-primary w-100 fs-5" @click="login">Bejelentkezés</button>
         </div>

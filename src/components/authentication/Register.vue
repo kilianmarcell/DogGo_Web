@@ -4,12 +4,28 @@
         <div class="text-decoration-underline fs-2 text-center pb-3">
             Regisztráció
         </div>
-
-        <input type="text" class="fs-5" v-model="this.state.registerUser.username" placeholder="Felhasználónév">
-        <input type="email" class="fs-5" v-model="this.state.registerUser.email" placeholder="Email">
-        <input type="password" class="fs-5" v-model="this.state.registerUser.password" placeholder="Jelszó">
-        <input type="password" class="fs-5" v-model="this.state.confirmPassword" placeholder="Jelszó ismét">
         
+        <div class="container">
+            <div class="row mb-2">
+                <label class="fs-5 p-0">Felhasználónév</label>
+                <input type="text" class="fs-5" v-model="this.state.registerUser.username" placeholder="Felhasználónév">
+            </div>
+
+            <div class="row mb-2">
+                <label class="fs-5 p-0">Email</label>
+                <input type="email" class="fs-5" v-model="this.state.registerUser.email" placeholder="Email">
+            </div>
+
+            <div class="row mb-2">
+                <label class="fs-5 p-0">Jelszó</label>
+                <input type="password" class="fs-5" v-model="this.state.registerUser.password" placeholder="Jelszó">
+            </div>
+            
+            <div class="row">
+                <label class="fs-5 p-0">Jelszó ismét</label>
+                <input type="password" class="fs-5" v-model="this.state.confirmPassword" placeholder="Jelszó ismét">
+            </div>
+        </div>
         <div class="pt-3">
             <button class="btn btn-primary w-100 fs-5" @click="register">Regisztrálás</button>
         </div>
@@ -46,7 +62,7 @@ export default {
                     email: { required, email, maxLength: maxLength(255) },
                     password: { required, minLength: minLength(8) }
                 },
-                confirmPassword: { required, sameAs: sameAs(this.state.registerUser.password) }
+                confirmPassword: { required, sameAs: sameAs(state.registerUser.password) }
             }
         })
 
