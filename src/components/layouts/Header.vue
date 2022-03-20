@@ -60,7 +60,22 @@ export default {
                localStorage.removeItem('token')
                this.$store.dispatch('user', null)
                this.$router.push({ name: "Home" })
+          },
+          async getUserDatas() {
+               let response = await axios
+                    .request({
+                    url: 'api/user',
+                    method: 'get'
+                    })
+                    
+               this.$store.dispatch('user', response.data)
           }
+     },
+  
+          mounted() {
+               if (localStorage.getItem('token') != null) {
+                    this.getUserDatas()
+               }
      },
 
      computed: {

@@ -91,7 +91,7 @@ export default {
                     .then(response => (this.token = response.data.token))
                     .catch(error => console.log(error))
 
-                    localStorage.setItem('token', this.token)
+                    await localStorage.setItem('token', this.token)
                     this.$router.push({ name: "Home" })
             }
         }
