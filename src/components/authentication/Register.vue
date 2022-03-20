@@ -25,8 +25,8 @@
                     v-model="this.state.registerUser.email"
                     placeholder="Email">
 
-                <span class="text-danger"  v-if="v$.registerUser.email.$error"> <!--$error = logikai változó-->
-                    {{ v$.registerUser.email.$errors[0].$message }} <!--$errors = tömb-->
+                <span class="text-danger" v-if="v$.registerUser.email.$error">
+                    {{ v$.registerUser.email.$errors[0].$message }}
                 </span>
             </div>
 
@@ -37,8 +37,8 @@
                     v-model="this.state.registerUser.password"
                     placeholder="Jelszó">
 
-                <span class="text-danger"  v-if="v$.registerUser.password.$error"> <!--$error = logikai változó-->
-                    {{ v$.registerUser.password.$errors[0].$message }} <!--$errors = tömb-->
+                <span class="text-danger" v-if="v$.registerUser.password.$error">
+                    {{ v$.registerUser.password.$errors[0].$message }}
                 </span>
             </div>
             
@@ -49,8 +49,8 @@
                     v-model="this.state.confirmPassword"
                     placeholder="Jelszó ismét">
 
-                <span class="text-danger"  v-if="v$.confirmPassword.$error"> <!--$error = logikai változó-->
-                    {{ v$.confirmPassword.$errors[0].$message }} <!--$errors = tömb-->
+                <span class="text-danger" v-if="v$.confirmPassword.$error">
+                    {{ v$.confirmPassword.$errors[0].$message }}
                 </span>
             </div>
         </div>
@@ -86,11 +86,11 @@ export default {
         const rules = computed(() => {
             return {
                 registerUser: {
-                    username: { required, minLength: minLength(5), maxLength: maxLength(20) },
-                    email: { required, email, maxLength: maxLength(255) },
-                    password: { required, minLength: minLength(8) }
+                    username: { required, min: minLength(5), max: maxLength(20) },
+                    email: { required, email, max: maxLength(255) },
+                    password: { required, min: minLength(8) }
                 },
-                confirmPassword: { required, sameAs: sameAs(state.registerUser.password) }
+                confirmPassword: { required, same: sameAs(state.registerUser.password) }
             }
         })
 
