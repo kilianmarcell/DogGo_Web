@@ -8,7 +8,10 @@
         <div class="container">
             <div class="row mb-2">
                 <label class="fs-5 p-0">Felhasználónév</label>
-                <input type="text" class="fs-5" v-model="this.state.registerUser.username" placeholder="Felhasználónév">
+                <input type="text" class="fs-5" v-model="state.registerUser.username" placeholder="Felhasználónév">
+                <span v-if="v$.email.error">
+                    {{ v$.email.$errors[0].$message }}
+                </span>
             </div>
 
             <div class="row mb-2">
@@ -38,7 +41,7 @@
 
 <script>
 import axios from "axios"
-import useValidate from "@vuelidate/core"
+import useVuelidate from "@vuelidate/core"
 import { required, minLength, maxLength, email, sameAs } from "@vuelidate/validators"
 import { reactive, computed } from "vue"
 
@@ -66,7 +69,7 @@ export default {
             }
         })
 
-        const v$ = useValidate(rules, state)
+        const v$ = useVuelidate(rules, state)
 
         return {
             state,

@@ -11,7 +11,9 @@
 
             <div class="row">
                 <label class="fs-5 p-0">Jelszó</label>
-                <input type="password" class="fs-5" placeholder="Jelszó">
+                <input type="password"
+                    class="fs-5"
+                    placeholder="Jelszó">
             </div>
         </div>
         <div class="pt-3">
@@ -26,14 +28,14 @@
 
 <script>
 import axios from "axios"
-import useValidate from "@vuelidate/core"
-import { required } from "@vuelidate/validators"
+import useVuelidate from "@vuelidate/core"
+import { required, minLength } from "@vuelidate/validators"
 
 export default {
     name: 'Login',
     data() {
         return {
-            v$: useValidate(),
+            v$: useVuelidate(),
             data: {
                 username: "",
                 password: ""
@@ -45,6 +47,21 @@ export default {
             },
             token: "",
             isLogging: false
+        }
+    },
+
+    validations() {
+        return {
+            form: {
+                username: { 
+                    required, name_validation: {
+                        $validator: validUsername,
+                        $message: 'Invalid Name. Valid name only contain letters, dashes (-) and spaces'
+                    } 
+                },
+                email: { required, email },
+                password: { required, min: minLength(8) },
+            },
         }
     },
 
