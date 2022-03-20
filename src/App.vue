@@ -40,7 +40,9 @@ export default {
   },
   
   mounted() {
-      this.getUserDatas()
+      if (localStorage.getItem('token') != null) {
+        this.getUserDatas()
+      }
   }
 }
 </script>

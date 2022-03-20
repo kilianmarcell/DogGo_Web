@@ -6,13 +6,17 @@
         <div class="container">
             <div class="row mb-2">
                 <label class="fs-5 p-0">Felhasználónév</label>
-                <input type="text" class="fs-5" placeholder="Felhasználónév">
+                <input type="text"
+                    class="fs-5"
+                    v-model="data.username"
+                    placeholder="Felhasználónév">
             </div>
 
             <div class="row">
                 <label class="fs-5 p-0">Jelszó</label>
                 <input type="password"
                     class="fs-5"
+                    v-model="data.password"
                     placeholder="Jelszó">
             </div>
         </div>
@@ -61,7 +65,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

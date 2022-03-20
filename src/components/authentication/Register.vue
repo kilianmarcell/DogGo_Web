@@ -12,7 +12,8 @@
                     class="fs-5"
                     v-model="this.state.registerUser.username"
                     placeholder="Felhasználónév">
-                <span v-if="v$.registerUser.username.$error"> <!--$error = logikai változó-->
+
+                <span class="text-danger" v-if="v$.registerUser.username.$error"> <!--$error = logikai változó-->
                     {{ v$.registerUser.username.$errors[0].$message }} <!--$errors = tömb-->
                 </span>
             </div>
@@ -23,19 +24,34 @@
                     class="fs-5"
                     v-model="this.state.registerUser.email"
                     placeholder="Email">
-                <span v-if="v$.registerUser.email.$error"> <!--$error = logikai változó-->
+
+                <span class="text-danger"  v-if="v$.registerUser.email.$error"> <!--$error = logikai változó-->
                     {{ v$.registerUser.email.$errors[0].$message }} <!--$errors = tömb-->
                 </span>
             </div>
 
             <div class="row mb-2">
                 <label class="fs-5 p-0">Jelszó</label>
-                <input type="password" class="fs-5" v-model="this.state.registerUser.password" placeholder="Jelszó">
+                <input type="password"
+                    class="fs-5"
+                    v-model="this.state.registerUser.password"
+                    placeholder="Jelszó">
+
+                <span class="text-danger"  v-if="v$.registerUser.password.$error"> <!--$error = logikai változó-->
+                    {{ v$.registerUser.password.$errors[0].$message }} <!--$errors = tömb-->
+                </span>
             </div>
             
             <div class="row">
                 <label class="fs-5 p-0">Jelszó ismét</label>
-                <input type="password" class="fs-5" v-model="this.state.confirmPassword" placeholder="Jelszó ismét">
+                <input type="password"
+                    class="fs-5"
+                    v-model="this.state.confirmPassword"
+                    placeholder="Jelszó ismét">
+
+                <span class="text-danger"  v-if="v$.confirmPassword.$error"> <!--$error = logikai változó-->
+                    {{ v$.confirmPassword.$errors[0].$message }} <!--$errors = tömb-->
+                </span>
             </div>
         </div>
         <div class="pt-3">
@@ -91,26 +107,14 @@ export default {
             this.v$.$validate()
             if (!this.v$.$error) {
                 await axios
-                .post('api/register', this.registerUser)
-                .then(response => (this.registerUser = response))
-                .then(console.log(this.registerUser))
+                .post('api/register', this.state.registerUser)
+                .then(response => (this.state.registerUser = response))
+                .then(console.log(this.state.registerUser))
                 .catch(error => console.log(error))
 
                 this.$router.push({
                     name: "Login"
                 })
-            }
-        },
-
-        kiir() {
-            console.log(this.registerUser)
-        },
-
-        reset() {
-            this.registerUser = {
-                username: "",
-                email: "",
-                password: ""
             }
         }
     }
