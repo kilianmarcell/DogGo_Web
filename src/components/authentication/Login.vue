@@ -92,7 +92,6 @@ export default {
                     .catch(error => console.log(error))
 
                     localStorage.setItem('token', this.token)
-                    this.$store.dispatch('user', this.user)
                     this.$router.push({ name: "Home" })
             }
         }
