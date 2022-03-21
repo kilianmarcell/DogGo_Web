@@ -79,7 +79,7 @@ export default {
 
                     password: {
                         required: helpers.withMessage('A jelszó mező kitöltése kötelező!', required),
-                        min: helpers.withMessage('A jelszónak legalább 8 karakter hoszzúnak kell lennie!', minLength(8)),
+                        min: helpers.withMessage('A jelszónak legalább 8 karakter hoszzúnak kell lennie!', minLength(8))
                     }
                 }
             }

@@ -67,7 +67,7 @@
 <script>
 import axios from "axios"
 import useVuelidate from "@vuelidate/core"
-import { required, minLength, maxLength, email, sameAs } from "@vuelidate/validators"
+import { required, minLength, maxLength, email, sameAs, helpers } from "@vuelidate/validators"
 import { reactive, computed } from "vue"
 
 export default {
@@ -86,11 +86,27 @@ export default {
         const rules = computed(() => {
             return {
                 registerUser: {
-                    username: { required, min: minLength(5), max: maxLength(20) },
-                    email: { required, email, max: maxLength(255) },
-                    password: { required, min: minLength(8) }
+                    required: helpers.withMessage('A felhasználónév mező kitöltése kötelező!', required),
+                    min: helpers.withMessage('A felhasználónévnek legalább 5 karakter hoszzúnak kell lennie!', minLength(5)),
+                    max: helpers.withMessage('A felhasználónév legfeljebb 20 karakter hoszzú lehet!', maxLength(20))
                 },
-                confirmPassword: { required, same: sameAs(state.registerUser.password) }
+
+                    email: {
+                        email: helpers.withMessage('Csak érvényes email cím írható be!'),
+                        required: helpers.withMessage('Az email mező kitöltése kötelező!', required),
+                        max: helpers.withMessage('Az email legfeljebb 255 karakter hoszzú lehet!', maxLength(255))
+                    },
+
+                    password: {
+                        required: helpers.withMessage('A jelszó mező kitöltése kötelező!', required),
+                        min: helpers.withMessage('A jelszónak legalább 8 karakter hoszzúnak kell lennie!', minLength(8))
+                    }
+                },
+
+                confirmPassword: {
+                    required,
+                    same: sameAs(state.registerUser.password)
+                }
             }
         })
 
