@@ -8,15 +8,14 @@
 <script>
 import axios from "axios"
 import Header from './components/layouts/Header.vue'
-import UserDatas from './components/parts/UserDatas.vue'
 import Text from './components/layouts/Text.vue'
 import Map from './components/parts/Map.vue'
 
 export default {
   name: 'App',
+  
   components: {
     Header,
-    UserDatas,
     Text,
     Map
   },
