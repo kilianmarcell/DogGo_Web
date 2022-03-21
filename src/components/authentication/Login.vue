@@ -33,7 +33,7 @@
         </div>
 
         <div class="text-end fs-6">
-            <router-link to="/register" class="text-primary">Nincs még fiókom</router-link>
+            <router-link :to="{ name: 'Register' }" class="text-primary">Nincs még fiókom</router-link>
         </div>
     </div>
 </template>

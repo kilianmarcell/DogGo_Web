@@ -6,7 +6,11 @@
 import UserData from "../parts/UserData.vue"
 
 export default {
-     name: 'UserDataPage'
+     name: 'UserDataPage',
+
+     components: {
+          UserData
+     }
 }
 </script>
 

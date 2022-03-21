@@ -59,7 +59,7 @@
         </div>
 
         <div class="text-end fs-6">
-            <router-link to="/login" class="text-primary">Van már fiókom</router-link>
+            <router-link :to="{ name: 'Login' }" class="text-primary">Van már fiókom</router-link>
         </div>
     </div>
 </template>
