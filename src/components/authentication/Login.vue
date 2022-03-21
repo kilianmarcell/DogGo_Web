@@ -92,7 +92,7 @@ export default {
                     .catch(error => console.log(error))
 
                     await localStorage.setItem('token', this.token)
-                    this.$router.push({ name: "Home" })
+                    this.$router.push({ name: "HomePage" })
             }
         }
     }

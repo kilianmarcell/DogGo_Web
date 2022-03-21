@@ -10,7 +10,7 @@ import Footer from '../layouts/Footer.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-     name: 'Home',
+     name: 'HomePage',
      
      components: {
           Text,
