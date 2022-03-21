@@ -1,12 +1,10 @@
 <template>
      <Text/>
-     <Footer/>
 </template>
 
 <script>
 import Text from '../layouts/Text.vue'
 import Map from '../parts/Map.vue'
-import Footer from '../layouts/Footer.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -14,8 +12,7 @@ export default {
      
      components: {
           Text,
-          Map,
-          Footer
+          Map
      },
 
      computed: {

@@ -2,12 +2,14 @@
   <div id="page">
     <Header/>
     <router-view/>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import axios from "axios"
 import Header from './components/layouts/Header.vue'
+import Footer from './components/layouts/Footer.vue'
 import Text from './components/layouts/Text.vue'
 import Map from './components/parts/Map.vue'
 
@@ -17,7 +19,8 @@ export default {
   components: {
     Header,
     Text,
-    Map
+    Map,
+    Footer
   },
 
   data() {
