@@ -1,7 +1,7 @@
 <template>
   <div id="page">
     <Header/>
-      <router-view/>
+    <router-view/>
   </div>
 </template>
 
@@ -47,15 +47,8 @@ export default {
 </script>
 
 <style>
-  html {
-    height: 100%;
-  }
-
-  body {
-    min-height: 100%;
-  }
-
   #page {
+    min-height: 100vh;
     background: linear-gradient(120deg, #86C232, #61892F);
   }
 
