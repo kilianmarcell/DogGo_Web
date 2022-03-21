@@ -1,5 +1,5 @@
 <template>
-    <div class="d-grid gap-3 col-3 mx-auto mt-5 text-inner">
+    <div class="d-grid gap-3 col-3 mx-auto mt-5 mb-5 text-inner">
         <div class="text-decoration-underline fs-2 text-center pb-3">
             Bejelentkezés
         </div>

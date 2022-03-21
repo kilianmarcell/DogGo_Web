@@ -47,9 +47,16 @@ export default {
 </script>
 
 <style>
+  html {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+  }
+
   #page {
     background: linear-gradient(120deg, #86C232, #61892F);
-    height: 100vh;
   }
 
   .text-wrapper {
