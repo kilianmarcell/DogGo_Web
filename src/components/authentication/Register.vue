@@ -86,13 +86,14 @@ export default {
         const rules = computed(() => {
             return {
                 registerUser: {
-                    required: helpers.withMessage('A felhasználónév mező kitöltése kötelező!', required),
-                    min: helpers.withMessage('A felhasználónévnek legalább 5 karakter hoszzúnak kell lennie!', minLength(5)),
-                    max: helpers.withMessage('A felhasználónév legfeljebb 20 karakter hoszzú lehet!', maxLength(20))
-                },
+                    username: {
+                        required: helpers.withMessage('A felhasználónév mező kitöltése kötelező!', required),
+                        min: helpers.withMessage('A felhasználónévnek legalább 5 karakter hoszzúnak kell lennie!', minLength(5)),
+                        max: helpers.withMessage('A felhasználónév legfeljebb 20 karakter hoszzú lehet!', maxLength(20))
+                    },
 
                     email: {
-                        email: helpers.withMessage('Csak érvényes email cím írható be!'),
+                        email: helpers.withMessage('Csak érvényes email cím írható be!', email),
                         required: helpers.withMessage('Az email mező kitöltése kötelező!', required),
                         max: helpers.withMessage('Az email legfeljebb 255 karakter hoszzú lehet!', maxLength(255))
                     },
@@ -100,12 +101,12 @@ export default {
                     password: {
                         required: helpers.withMessage('A jelszó mező kitöltése kötelező!', required),
                         min: helpers.withMessage('A jelszónak legalább 8 karakter hoszzúnak kell lennie!', minLength(8))
-                    }
+                    },
                 },
 
                 confirmPassword: {
-                    required,
-                    same: sameAs(state.registerUser.password)
+                    required: helpers.withMessage('A mező kitöltése kötelező!', required),
+                    same: helpers.withMessage('A mezőnek egyeznie kell a jelszóval!', sameAs(state.registerUser.password))
                 }
             }
         })
