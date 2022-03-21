@@ -22,5 +22,6 @@ export default {
           color: #FFFFFF;
           height: 150px;
           position: fixed;
+          bottom: 0;
      }
 </style>

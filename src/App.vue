@@ -49,6 +49,7 @@ export default {
 <style>
   #page {
     background: linear-gradient(120deg, #86C232, #61892F);
+    height: 100vh;
   }
 
   .text-wrapper {
