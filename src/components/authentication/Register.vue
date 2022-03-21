@@ -13,7 +13,7 @@
                     v-model="this.state.registerUser.username"
                     placeholder="Felhasználónév">
 
-                <span class="text-danger" v-if="v$.registerUser.username.$error"> <!--$error = logikai változó-->
+                <span class="text-danger text-center" v-if="v$.registerUser.username.$error"> <!--$error = logikai változó-->
                     {{ v$.registerUser.username.$errors[0].$message }} <!--$errors = tömb-->
                 </span>
             </div>
@@ -25,7 +25,7 @@
                     v-model="this.state.registerUser.email"
                     placeholder="Email">
 
-                <span class="text-danger" v-if="v$.registerUser.email.$error">
+                <span class="text-danger text-center" v-if="v$.registerUser.email.$error">
                     {{ v$.registerUser.email.$errors[0].$message }}
                 </span>
             </div>
@@ -37,7 +37,7 @@
                     v-model="this.state.registerUser.password"
                     placeholder="Jelszó">
 
-                <span class="text-danger" v-if="v$.registerUser.password.$error">
+                <span class="text-danger text-center" v-if="v$.registerUser.password.$error">
                     {{ v$.registerUser.password.$errors[0].$message }}
                 </span>
             </div>
@@ -49,7 +49,7 @@
                     v-model="this.state.confirmPassword"
                     placeholder="Jelszó ismét">
 
-                <span class="text-danger" v-if="v$.confirmPassword.$error">
+                <span class="text-danger text-center" v-if="v$.confirmPassword.$error">
                     {{ v$.confirmPassword.$errors[0].$message }}
                 </span>
             </div>

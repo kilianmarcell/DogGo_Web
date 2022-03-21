@@ -11,7 +11,7 @@
                     v-model="this.state.registeredUser.username"
                     placeholder="Felhasználónév">
 
-                <span class="text-danger" v-if="v$.registeredUser.username.$error">
+                <span class="text-danger text-center" v-if="v$.registeredUser.username.$error">
                     {{ v$.registeredUser.username.$errors[0].$message }}
                 </span>
             </div>
@@ -23,7 +23,7 @@
                     v-model="this.state.registeredUser.password"
                     placeholder="Jelszó">
 
-                <span class="text-danger" v-if="v$.registeredUser.password.$error">
+                <span class="text-danger text-center" v-if="v$.registeredUser.password.$error">
                     {{ v$.registeredUser.password.$errors[0].$message }}
                 </span>
             </div>
@@ -60,8 +60,6 @@ export default {
         }
     },
 
-
-    
     setup() {
         const state = reactive({
             registeredUser: {
@@ -73,8 +71,16 @@ export default {
         const rules = computed(() => {
             return {
                 registeredUser: {
-                    username: { required, min: minLength(5), max: maxLength(20) },
-                    password: { required, min: minLength(8) }
+                    username: {
+                        required: helpers.withMessage('A felhasználónév mező kitöltése kötelező!', required),
+                        min: helpers.withMessage('A felhasználónévnek legalább 5 karakter hoszzúnak kell lennie!', minLength(5)),
+                        max: helpers.withMessage('A felhasználónév legfeljebb 20 karakter hoszzú lehet!', maxLength(20))
+                    },
+
+                    password: {
+                        required: helpers.withMessage('A jelszó mező kitöltése kötelező!', required),
+                        min: helpers.withMessage('A jelszónak legalább 8 karakter hoszzúnak kell lennie!', minLength(8)),
+                    }
                 }
             }
         })
