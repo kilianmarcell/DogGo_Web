@@ -14,23 +14,23 @@
                     <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
                          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fs-4">
                               <li class="nav-item">
-                                   <router-link to="/" class="nav-link"><fa :icon="['fas', 'home']"/></router-link>
+                                   <router-link :to="{ name: 'Home' }" class="nav-link"><fa :icon="['fas', 'home']"/></router-link>
                               </li>
                               <li class="nav-item">
                                    <a class="nav-link" href="https://github.com/kilianmarcell/DogGo_Web"><fa :icon="['fas', 'code']"/></a>
                               </li>
                               <li class="nav-item">
-                                   <router-link to="/info" class="nav-link"><fa :icon="['fas', 'question']"/></router-link>
+                                   <router-link :to="{ name: 'Info' }" class="nav-link"><fa :icon="['fas', 'question']"/></router-link>
                               </li>
                               <li v-if="!user" class="nav-item">
-                                   <router-link to="/register" class="nav-link"><fa :icon="['fas', 'sign-in']"/></router-link>
+                                   <router-link :to="{ name: 'Register' }" class="nav-link"><fa :icon="['fas', 'sign-in']"/></router-link>
                               </li>
                               <li v-if="user" class="nav-item dropdown">
                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         {{ user.username }} <fa :icon="['fas', 'user']"/>
                                    </a>
                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Adatok módosíása</a></li>
+                                        <li><router-link :to="{ name: 'UserData' }" class="dropdown-item">Adatok módosíása</router-link></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a @click="signOut" class="dropdown-item" href="#">Kijelentkezés</a></li>
                                    </ul>
