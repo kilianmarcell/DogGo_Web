@@ -57,7 +57,7 @@
 import axios from "axios"
 
 export default {
-    name: 'List',
+    name: 'Locations',
 
     data() {
         return {

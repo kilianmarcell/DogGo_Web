@@ -29,8 +29,9 @@
                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         {{ user.username }} <fa :icon="['fas', 'user']"/>
                                    </a>
-                                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                                         <li><router-link :to="{ name: 'UserData' }" class="dropdown-item">Adataim módosíása</router-link></li>
+                                        <li><router-link :to="{ name: 'MyLocationsPage' }" class="dropdown-item">Helyeim módosíása</router-link></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a @click="signOut" class="dropdown-item" href="#">Kijelentkezés</a></li>
                                    </ul>

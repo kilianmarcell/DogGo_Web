@@ -1,13 +1,13 @@
 <template>
      <Text/>
-     <List/>
+     <Locations/>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import Text from '../layouts/Text.vue'
 import Map from '../parts/Map.vue'
-import List from '../parts/List.vue'
+import Locations from '../parts/Locations.vue'
 
 export default {
      name: 'HomePage',
@@ -15,7 +15,7 @@ export default {
      components: {
           Text,
           Map,
-          List
+          Locations
      },
 
      computed: {

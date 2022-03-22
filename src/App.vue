@@ -12,7 +12,6 @@ import Header from './components/layouts/Header.vue'
 import Footer from './components/layouts/Footer.vue'
 import Text from './components/layouts/Text.vue'
 import Map from './components/parts/Map.vue'
-import List from "./components/parts/List.vue"
 
 export default {
   name: 'App',
@@ -21,8 +20,7 @@ export default {
     Header,
     Text,
     Map,
-    Footer,
-    List
+    Footer
 },
 
   data() {

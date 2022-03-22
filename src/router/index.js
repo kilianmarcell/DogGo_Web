@@ -5,6 +5,7 @@ import RegisterPage from '../components/sites/RegisterPage.vue'
 import LoginPage from '../components/sites/LoginPage.vue'
 import InfoPage from '../components/sites/InfoPage.vue'
 import UserDataPage from '../components/sites/UserDataPage.vue'
+import MyLocationsPage from '../components/sites/MyLocationsPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -15,24 +16,29 @@ const router = createRouter({
       component: HomePage
     },
     {
-      path: '/register',
+      path: '/regisztracio',
       name: 'Register',
       component: RegisterPage
     },
     {
-      path: '/login',
+      path: '/bejelentkezes',
       name: 'Login',
       component: LoginPage
     },
     {
-      path: '/info',
+      path: '/doggoinformacio',
       name: 'Info',
       component: InfoPage
     },
     {
-      path: '/userdata',
+      path: '/felhasznalo',
       name: 'UserData',
       component: UserDataPage
+    },
+    {
+      path: '/helyek',
+      name: 'MyLocationsPage',
+      component: MyLocationsPage
     }
   ]
 })
