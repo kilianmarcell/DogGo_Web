@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row mb-2">
                 <label class="fs-5 p-0">Felhasználónév</label>
-                <input type="text"
+                <input v-if="user" type="text"
                     class="fs-5"
                     placeholder="Felhasználónév"
                     :value="user.username">
@@ -22,7 +22,7 @@ export default {
      name: 'UserData',
 
      computed: {
-          ...mapGetters(['user'])
+         ...mapGetters(['user'])
      }
 }
 </script>

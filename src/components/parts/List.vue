@@ -70,7 +70,7 @@ export default {
                 lng: null,
                 description: "",
                 allowed: false,
-                user_id: 1
+                user_id: 16
             },
 
             validations: {
@@ -88,7 +88,7 @@ export default {
     methods: {
         async loadData() {
             await axios
-                .get('http://127.0.0.1:8000/api/user_locations/' + user.id)
+                .get('http://127.0.0.1:8000/api/locations')
                 .then(response => (this.locations = response.data))
                 .catch(error => console.log(error))
         },
