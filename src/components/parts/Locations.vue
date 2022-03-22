@@ -1,6 +1,6 @@
 <template>
-    <div class="mb-5">
-        <h1>Helyek</h1>
+    <div id="locs" class="mb-5 text-inner">
+        <p class="fs-1 text-center text-decoration-underline text-uppercase">Helyek</p>
     <table>
         <thead>
             <tr>
@@ -11,41 +11,41 @@
                 <th>Leírás</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="fs-5">
                 <tr v-for="l in locations" :key="l.id">
                     <td>{{ l.id }}</td>
                     <td>{{ l.name }}</td>
                     <td>{{ l.lat }}</td>
                     <td>{{ l.lng }}</td>
                     <td>{{ l.description }}</td>
-                    <td>
-                        <button @click="deleteLocation(l.id)">Törlés</button>
+                    <td v-if="user">
+                        <button class="btn btn-danger fs-5" @click="deleteLocation(l.id)">Törlés</button>
                         <br>
-                        <button @click="editLocation(l.id)">Szerkesztés</button>
+                        <button class="btn btn-primary fs-5" @click="editLocation(l.id)">Szerkesztés</button>
                     </td>
                 </tr>
-                <tr>
+                <tr v-if="user">
                     <td></td>
                     <td>
                         <span :class="{hidden: this.validations.name}">A név mező kitöltése kötelező, a név legalább 5 karakter legyen!</span><br>
-                        <input type="text" v-model="location.name">
+                        <input type="text fs-5" v-model="location.name">
                     </td>
                     <td>
                         <span :class="{hidden: this.validations.lat}">A lat mező kitöltése kötelező!</span><br>
-                        <input type="number" v-model="location.lat">
+                        <input type="number fs-5" v-model="location.lat">
                     </td>
                     <td>
                         <span :class="{hidden: this.validations.lng}">A lng mező kitöltése kötelező!</span><br>
-                        <input type="number" v-model="location.lng">
+                        <input type="number fs-5" v-model="location.lng">
                     </td>
                     <td>
                         <span :class="{hidden: this.validations.description}">A description mező kitöltése kötelező!</span><br>
                         <input type="text" v-model="location.description"></td>
                     <td>
-                        <button @click="newLocation" :disabled="saving" v-if="!add_new">Hozzáadás</button>
-                        <button v-if="add_new" @click="saveLocation">Mentés</button>
+                        <button class="btn btn-success" @click="newLocation" :disabled="saving" v-if="!add_new">Hozzáadás</button>
+                        <button class="btn btn-primary" v-if="add_new" @click="saveLocation">Mentés</button>
                         <br>
-                        <button v-if="add_new" @click="cancelLocation">Mégse</button>
+                        <button class="btn btn-danger" v-if="add_new" @click="cancelLocation">Mégse</button>
                     </td>
                 </tr>
         </tbody>
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import axios from "axios"
 
 export default {
@@ -114,6 +115,8 @@ export default {
                 .catch(error => console.log(error))
 
             await this.loadData()
+
+            this.resetForm()
         },
 
         async editLocation(id) {
@@ -187,11 +190,19 @@ export default {
 
     mounted() {
         this.loadData()
-    }
+    },
+
+     computed: {
+          ...mapGetters(['user'])
+     }
 }
 </script>
 
 <style>
+    #locs {
+        width: 90%;
+    }
+
     h1 {
         text-align: center;
     }
