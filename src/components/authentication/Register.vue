@@ -126,12 +126,9 @@ export default {
                 await axios
                 .post('api/register', this.state.registerUser)
                 .then(response => (this.state.registerUser = response))
-                .then(console.log(this.state.registerUser))
                 .catch(error => console.log(error))
 
-                this.$router.push({
-                    name: "Login"
-                })
+                this.$router.push({ name: "Login" })
             }
         }
     }

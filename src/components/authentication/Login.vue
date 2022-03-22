@@ -102,8 +102,7 @@ export default {
                     .then(response => (this.token = response.data.token))
                     .catch(error => console.log(error))
 
-                    await localStorage.setItem('token', this.token)
-                    this.$router.push({ name: "Home" })
+                await localStorage.setItem('token', this.token)
 
                 let response = await axios
                         .request({
@@ -112,6 +111,7 @@ export default {
                         })
                         
                 this.$store.dispatch('user', response.data)
+                this.$router.push({ name: "Home" })
             }
         }
     }
