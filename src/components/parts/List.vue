@@ -55,6 +55,7 @@
 
 <script>
 import axios from "axios"
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'List',
@@ -87,7 +88,7 @@ export default {
     methods: {
         async loadData() {
             await axios
-                .get('http://127.0.0.1:8000/api/locations')
+                .get('http://127.0.0.1:8000/api/user_locations/' + user.id)
                 .then(response => (this.locations = response.data))
                 .catch(error => console.log(error))
         },
@@ -183,6 +184,10 @@ export default {
 
             return error
         }
+    },
+
+    computed: {
+        ...mapGetters(['user'])
     },
 
     mounted() {

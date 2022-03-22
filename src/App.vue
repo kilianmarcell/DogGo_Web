@@ -3,6 +3,7 @@
     <Header/>
     <router-view/>
     <Footer/>
+    <List/>
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import Header from './components/layouts/Header.vue'
 import Footer from './components/layouts/Footer.vue'
 import Text from './components/layouts/Text.vue'
 import Map from './components/parts/Map.vue'
+import List from "./components/parts/List.vue"
 
 export default {
   name: 'App',
@@ -20,8 +22,9 @@ export default {
     Header,
     Text,
     Map,
-    Footer
-  },
+    Footer,
+    List
+},
 
   data() {
       return {
@@ -52,7 +55,7 @@ export default {
 <style>
   #page {
     min-height: 100vh;
-    background: linear-gradient(120deg, #86C232, #61892F);
+    background: linear-gradient(120deg, #86C232, #86C232, #61892F);
   }
 
   .text-wrapper {

@@ -8,7 +8,8 @@
                 <label class="fs-5 p-0">Felhasználónév</label>
                 <input type="text"
                     class="fs-5"
-                    placeholder="Felhasználónév">
+                    placeholder="Felhasználónév"
+                    :value="user.username">
             </div>
         </div>
     </div>
