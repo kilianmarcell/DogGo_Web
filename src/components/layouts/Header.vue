@@ -30,7 +30,7 @@
                                         {{ user.username }} <fa :icon="['fas', 'user']"/>
                                    </a>
                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><router-link :to="{ name: 'UserData' }" class="dropdown-item">Adatok módosíása</router-link></li>
+                                        <li><router-link :to="{ name: 'UserData' }" class="dropdown-item">Adataim módosíása</router-link></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a @click="signOut" class="dropdown-item" href="#">Kijelentkezés</a></li>
                                    </ul>

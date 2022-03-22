@@ -4,11 +4,11 @@
     <table>
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Lat</th>
-                <th>Lng</th>
-                <th>Description</th>
+                <th>Azonosító</th>
+                <th>Név</th>
+                <th>Szélesség</th>
+                <th>Hosszúság</th>
+                <th>Leírás</th>
             </tr>
         </thead>
         <tbody>
@@ -55,7 +55,6 @@
 
 <script>
 import axios from "axios"
-import { mapGetters } from 'vuex'
 
 export default {
     name: 'List',
@@ -70,7 +69,7 @@ export default {
                 lng: null,
                 description: "",
                 allowed: false,
-                user_id: 16
+                user_id: 1
             },
 
             validations: {
@@ -88,7 +87,7 @@ export default {
     methods: {
         async loadData() {
             await axios
-                .get('http://127.0.0.1:8000/api/user_locations/' + this.user.id)
+                .get('http://127.0.0.1:8000/api/locations')
                 .then(response => (this.locations = response.data))
                 .catch(error => console.log(error))
         },
@@ -186,14 +185,8 @@ export default {
         }
     },
 
-    computed: {
-        ...mapGetters(['user'])
-    },
-
     mounted() {
-        if (this.user != null) {
-            this.loadData()
-        }
+        this.loadData()
     }
 }
 </script>
