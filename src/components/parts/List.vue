@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h1>Locations</h1>
+    <div class="mb-5">
+        <h1>Helyek</h1>
     <table>
         <thead>
             <tr>
@@ -70,7 +70,7 @@ export default {
                 lng: null,
                 description: "",
                 allowed: false,
-                user_id: null
+                user_id: 16
             },
 
             validations: {
@@ -145,7 +145,7 @@ export default {
                 lng: null,
                 description: "",
                 allowed: false,
-                user_id: 1
+                user_id: 16
             },
 
             this.add_new = false
@@ -191,7 +191,9 @@ export default {
     },
 
     mounted() {
-        this.loadData()
+        if (this.user != null) {
+            this.loadData()
+        }
     }
 }
 </script>
