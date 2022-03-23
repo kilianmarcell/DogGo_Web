@@ -125,7 +125,6 @@ export default {
             if (!this.v$.$error) {
                 await axios
                 .post('api/register', this.state.registerUser)
-                .then(response => (this.state.registerUser = response))
                 .catch(error => console.log(error))
 
                 this.$router.push({ name: "Login" })
@@ -134,7 +133,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>
