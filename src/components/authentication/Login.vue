@@ -32,6 +32,10 @@
             <button class="btn btn-primary w-100 fs-5" @click="login">Bejelentkezés</button>
         </div>
 
+        <div v-if="this.error" class="alert alert-danger d-flex align-items-center">
+            {{ this.errorMessage }}
+        </div>
+
         <div class="text-end fs-6">
             <router-link :to="{ name: 'Register' }" class="text-primary">Nincs még fiókom</router-link>
         </div>
@@ -54,9 +58,8 @@ export default {
                 username: ""
             },
             token: "",
-            customisedMessages: {
-                required: "A {attribute} mező kitöltése kötelező!"
-            }
+            error: false,
+            errorMessage: ""
         }
     },
 
@@ -100,15 +103,22 @@ export default {
                 await axios
                     .post('api/login', this.state.registeredUser)
                     .then(response => (this.token = response.data.token))
-                    .catch(error => console.log(error))
+                    .then(this.error = false)
+                    .catch(error => {
+                        if (error.response.status == 401) {
+                            this.error = true
+                            this.errorMessage = "Helytelen felhasználónév vagy jelszó!"
+                        }
+                    })
+                    if (!this.error) {
+                        await localStorage.setItem('token', this.token)
 
-                await localStorage.setItem('token', this.token)
-
-                let response = await axios
-                        .request({ url: 'api/user', method: 'get' })
-                        
-                this.$store.dispatch('user', response.data)
-                this.$router.push({ name: "Home" })
+                        let response = await axios
+                                .request({ url: 'api/user', method: 'get' })
+                                
+                        this.$store.dispatch('user', response.data)
+                        this.$router.push({ name: "Home" })
+                    }
             }
         }
     }
