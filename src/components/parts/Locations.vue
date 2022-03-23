@@ -129,7 +129,7 @@ export default {
             this.saving = 'disabled'
 
             await axios
-                .patch(`http://127.0.0.1:8000/api/locations/${this.location.id}`, this.location)
+                .put(`http://127.0.0.1:8000/api/locations/${this.location.id}`, this.location)
 
             await this.loadData()
             this.resetForm()
