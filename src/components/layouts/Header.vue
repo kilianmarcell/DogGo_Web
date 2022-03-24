@@ -67,8 +67,13 @@ export default {
           async getUserDatas() {
                let response = await axios
                     .request({ url: 'api/user', method: 'get' })
+                    .catch(error => {
+                         if (error.response.status == 401) {
+                              localStorage.removeItem('token')
+                         }
+                    })
                     
-               this.$store.dispatch('user', response.data)
+               this.$store.dispatch('user', response.data)  
           }
      },
      

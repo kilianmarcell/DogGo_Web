@@ -142,6 +142,8 @@ export default {
                     if (error.response.status == 500) {
                         this.error = true
                         this.errorMessage = "Ilyen felhasználó már létezik!"
+                    } else if (error.response.status == 401) {
+                        this.$router.go()
                     }
                 })
 
