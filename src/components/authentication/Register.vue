@@ -53,6 +53,10 @@
                     {{ v$.confirmPassword.$errors[0].$message }}
                 </span>
             </div>
+
+            <div v-if="this.error" class="alert alert-danger d-flex align-items-center">
+                {{ this.errorMessage }}
+            </div>
         </div>
         <div class="pt-3">
             <button class="btn btn-primary w-100 fs-5" @click="register">Regisztrálás</button>
@@ -72,6 +76,14 @@ import { reactive, computed } from "vue"
 
 export default {
     name: 'Register',
+    
+    data() {
+        return {
+            token: "",
+            error: false,
+            errorMessage: ""
+        }
+    },
 
     setup() {
         const state = reactive({
@@ -125,9 +137,25 @@ export default {
             if (!this.v$.$error) {
                 await axios
                 .post('api/register', this.state.registerUser)
-                .catch(error => console.log(error))
+                .then(this.error = false)
+                .catch(error => {
+                    if (error.response.status == 500) {
+                        this.error = true
+                        this.errorMessage = "Ilyen felhasználó már létezik!"
+                    }
+                })
 
-                this.$router.push({ name: "Login" })
+                if (!this.error) {
+                    await axios
+                        .post('api/login', this.state.registerUser)
+                        .then(response => (localStorage.setItem('token', response.data.token)))
+
+                    await axios
+                        .request({ url: 'api/user', method: 'get' })
+                        .then(response => this.$store.dispatch('user', response.data))
+
+                    this.$router.push({ name: "Home" })
+                }
             }
         }
     }

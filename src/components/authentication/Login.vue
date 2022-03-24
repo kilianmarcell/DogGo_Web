@@ -50,6 +50,7 @@ import { reactive, computed } from "vue"
 
 export default {
     name: 'Login',
+    
     data() {
         return {
             user: {
