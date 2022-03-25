@@ -142,8 +142,6 @@ export default {
                     if (error.response.status == 500) {
                         this.error = true
                         this.errorMessage = "Ilyen felhasználó már létezik!"
-                    } else if (error.response.status == 401) {
-                        this.$router.go()
                     }
                 })
 
@@ -155,8 +153,12 @@ export default {
                     await axios
                         .request({ url: 'api/user', method: 'get' })
                         .then(response => this.$store.dispatch('user', response.data))
+                        .catch(error => {
+                            if (error.response.status == 401) {
+                                this.$router.go(-1)
+                            }
+                        })
 
-                    this.$router.push({ name: "Home" })
                 }
             }
         }

@@ -73,7 +73,7 @@ export default {
                          }
                     })
                     
-               this.$store.dispatch('user', response.data)  
+               this.$store.dispatch('user', response.data)
           }
      },
      
