@@ -33,6 +33,9 @@
         <div class="pt-3">
             <button class="btn btn-primary w-100 fs-5" @click="change">Módosítás</button>
         </div>
+        <div v-if="this.error" class="alert alert-danger d-flex align-items-center">
+            {{ this.errorMessage }}
+        </div>
     </div>
 </template>
 
@@ -46,20 +49,10 @@ import { reactive, computed } from "vue"
 export default {
     name: 'UserData',
 
-    methods: {
-        async change() {
-            this.v$.$validate()
-            if (!this.v$.$error) {
-                await axios
-                    .put('api/users/' + this.user.id, this.state.modifyUser)
-                    .catch(error => console.log(error))
-
-                let response = await axios
-                        .request({ url: 'api/user', method: 'get' })
-                        
-                this.$store.dispatch('user', response.data)
-                this.$router.push({ name: "Home" })
-            }
+    data() {
+        return {
+            error: false,
+            errorMessage: ""
         }
     },
     
@@ -94,6 +87,30 @@ export default {
         return {
             state,
             v$
+        }
+    },
+
+    methods: {
+        async change() {
+            this.v$.$validate()
+            if (!this.v$.$error) {
+                await axios
+                    .put('api/users/' + this.user.id, this.state.modifyUser)
+                    .catch(error => {
+                        if (error.response.status == 422) {
+                            this.errorMessage = "Ilyen felhasználó már létezik!"
+                            this.error = true
+                        }
+                    })
+            }
+
+            if (!this.error) {
+                await axios
+                    .request({ url: 'api/user', method: 'get' })
+                    .then(response => this.$store.dispatch('user', response.data))
+                    
+                this.$router.go(-1)
+            }
         }
     },
 

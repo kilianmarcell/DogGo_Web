@@ -139,7 +139,7 @@ export default {
                 .post('api/register', this.state.registerUser)
                 .then(this.error = false)
                 .catch(error => {
-                    if (error.response.status == 500) {
+                    if (error.response.status == 400) {
                         this.error = true
                         this.errorMessage = "Ilyen felhasználó már létezik!"
                     }

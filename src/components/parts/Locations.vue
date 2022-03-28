@@ -190,11 +190,6 @@ export default {
     },
 
     mounted() {
-        if (this.user != null ) {
-            admin = 1
-            console.log(this.user)
-        }
-
         this.loadData()
     },
 
