@@ -15,10 +15,16 @@
                     {{ v$.errorMsg.comment.$errors[0].$message }}
                     </span>
                </div>
-               <div class="d-flex justify-content-end">
+               <div class="d-flex justify-content-end mb-2" v-if="!sent">
                     <button class="btn btn-success fs-4 w-25" @click="sendError">
                          Hiba küldése
                     </button>
+               </div>
+               <div v-if="this.error == 0" class="alert alert-danger d-flex align-items-center fs-4">
+                    {{ this.message }}
+               </div>
+               <div v-if="this.error == 1" class="alert alert-success d-flex align-items-center fs-4">
+                    {{ this.message }}
                </div>
           </div>
      </div>
@@ -32,6 +38,14 @@ import { reactive, computed } from "vue"
 
 export default {
      name: 'Error',
+
+     data() {
+          return {
+               message: "",
+               error: 2,
+               sent: 0
+          }
+     },
      
      setup() {
         const state = reactive({
@@ -44,8 +58,8 @@ export default {
             return {
                errorMsg: {
                     comment: {
-                         required: helpers.withMessage('A hibaüzenet kitöltése kötelező!', required),
-                         max: helpers.withMessage('A hibaüzenet legfeljebb 255 karakter hoszzú lehet!', maxLength(255))
+                         required: helpers.withMessage('A hiba leírása nem lehet üres!', required),
+                         max: helpers.withMessage('A hiba leírása legfeljebb 255 karakter hoszzú lehet!', maxLength(255))
                     }
                }
             }
@@ -65,6 +79,16 @@ export default {
                if (!this.v$.$error) {
                     await axios
                          .post('api/feedbacks', this.state.errorMsg)
+                         .then(response => {
+                              if (response.status == 201) {
+                                   this.message = "Üzenet sikeresen elküldve"
+                                   this.error = 1
+                                   this.sent = 1
+                              } else {
+                                   this.message = "Az üzenet nincs elküldve"
+                                   this.error = 0
+                              }
+                         })
                          .catch(error => console.log(this.error))
                }
           }
