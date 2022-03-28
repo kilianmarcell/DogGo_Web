@@ -23,7 +23,7 @@ const store = createStore({
 
   actions: {
        user(context, user) {
-            context.commit('setUser', user) //a user mutation-t hívja meg, a bejövő user adattal teszi egyenlővé
+            context.commit('setUser', user) //a setUser mutation-t hívja meg, a bejövő user adattal teszi egyenlővé
        }
   }
 })

@@ -1,18 +1,23 @@
 <template>
-    <div id="locs" class="mb-5 text-inner w-75">
+    <div id="locs" class="mb-5 text-inner">
         <p class="fs-1 text-center text-decoration-underline text-uppercase">Helyek</p>
     <table>
         <thead>
             <tr>
+                <th v-if="this.admin">Azonosító</th>
                 <th>Név</th>
+                <th>Szélesség</th>
+                <th>Hosszúság</th>
+                <th>Leírás</th>
             </tr>
         </thead>
         <tbody class="fs-5">
                 <tr v-for="l in locations" :key="l.id">
-                    <td>
-                        {{ l.name }}
-                        <button class="btn btn-primary w-25">Megtekintés</button>
-                    </td>
+                    <td v-if="this.admin">{{ l.id }}</td>
+                    <td>{{ l.name }}</td>
+                    <td>{{ l.lat }}</td>
+                    <td>{{ l.lng }}</td>
+                    <td>{{ l.description }}</td>
                     <td v-if="user">
                         <button class="btn btn-danger fs-5" @click="deleteLocation(l.id)">Törlés</button>
                         <br>
@@ -20,9 +25,22 @@
                     </td>
                 </tr>
                 <tr v-if="user">
+                    <td></td>
                     <td>
+                        <span :class="{hidden: this.validations.name}">A név mező kitöltése kötelező, a név legalább 5 karakter legyen!</span><br>
                         <input type="text fs-5" v-model="location.name">
                     </td>
+                    <td>
+                        <span :class="{hidden: this.validations.lat}">A lat mező kitöltése kötelező!</span><br>
+                        <input type="number fs-5" v-model="location.lat">
+                    </td>
+                    <td>
+                        <span :class="{hidden: this.validations.lng}">A lng mező kitöltése kötelező!</span><br>
+                        <input type="number fs-5" v-model="location.lng">
+                    </td>
+                    <td>
+                        <span :class="{hidden: this.validations.description}">A description mező kitöltése kötelező!</span><br>
+                        <input type="text" v-model="location.description"></td>
                     <td>
                         <button class="btn btn-success" @click="newLocation" :disabled="saving" v-if="!add_new">Hozzáadás</button>
                         <button class="btn btn-primary" v-if="add_new" @click="saveLocation">Mentés</button>
@@ -63,14 +81,15 @@ export default {
             },
 
             add_new: false,
-            saving: false
+            saving: false,
+            admin: 0
         }
     },
     
     methods: {
         async loadData() {
             await axios
-                .get('api/locations')
+                .get('http://127.0.0.1:8000/api/locations')
                 .then(response => (this.locations = response.data))
                 .catch(error => console.log(error))
         },
@@ -81,7 +100,7 @@ export default {
                 this.saving = true
 
                 await axios
-                    .post('api/locations', this.location)
+                    .post('http://127.0.0.1:8000/api/locations', this.location)
                     .catch(error => console.log(error))
 
                 await this.loadData()
@@ -133,10 +152,49 @@ export default {
             },
 
             this.add_new = false
+        },
+
+        validation() {
+            let error = false
+            
+            if (this.location.name === "" || this.location.name.length < 5) {
+                this.validations.name = false
+                error = true
+            } else {
+                this.validations.name = true
+            }
+            
+            if (this.location.lat === null || this.location.lat === "") {
+                this.validations.lat = false
+                error = true
+            } else {
+                this.validations.lat = true
+            }
+            
+            if (this.location.lng === null || this.location.lng === "") {
+                this.validations.lng = false
+                error = true
+            } else {
+                this.validations.lng = true
+            }
+
+            if (this.location.description === null || this.location.description === "") {
+                this.validations.description = false
+                error = true
+            } else {
+                this.validations.description = true
+            }
+
+            return error
         }
     },
 
     mounted() {
+        if (this.user != null ) {
+            admin = 1
+            console.log(this.user)
+        }
+
         this.loadData()
     },
 

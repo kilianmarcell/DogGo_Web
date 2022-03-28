@@ -1,5 +1,5 @@
 <template>
-     <div class="d-grid gap-3 col-3 mx-auto mt-5 mb-5 text-inner">
+     <div class="d-grid gap-3 col-3 mx-auto mt-5 mb-5 text-inner w-25">
         <div class="text-decoration-underline fs-2 text-center pb-3">
             Adataim módosítása
         </div>
@@ -102,7 +102,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>
