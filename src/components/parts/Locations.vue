@@ -89,7 +89,7 @@ export default {
     methods: {
         async loadData() {
             await axios
-                .get('http://127.0.0.1:8000/api/locations')
+                .get('api/locations')
                 .then(response => (this.locations = response.data))
                 .catch(error => console.log(error))
         },
@@ -100,7 +100,7 @@ export default {
                 this.saving = true
 
                 await axios
-                    .post('http://127.0.0.1:8000/api/locations', this.location)
+                    .post('api/locations', this.location)
                     .catch(error => console.log(error))
 
                 await this.loadData()
@@ -112,7 +112,7 @@ export default {
 
         async deleteLocation(id) {
             await axios
-                .delete(`http://127.0.0.1:8000/api/locations/${id}`)
+                .delete(`api/locations/${id}`)
                 .catch(error => console.log(error))
 
             await this.loadData()
@@ -122,7 +122,7 @@ export default {
 
         async editLocation(id) {
             this.add_new = true
-            let response = await fetch(`http://127.0.0.1:8000/api/locations/${id}`)
+            let response = await fetch(`api/locations/${id}`)
             this.location = await response.json()
         },
 
@@ -130,7 +130,7 @@ export default {
             this.saving = 'disabled'
 
             await axios
-                .put(`http://127.0.0.1:8000/api/locations/${this.location.id}`, this.location)
+                .put(`api/locations/${this.location.id}`, this.location)
 
             await this.loadData()
             this.resetForm()
@@ -148,7 +148,7 @@ export default {
                 lng: null,
                 description: "",
                 allowed: false,
-                user_id: 16
+                user_id: 1
             },
 
             this.add_new = false
