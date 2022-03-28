@@ -22,6 +22,9 @@
                               <li class="nav-item">
                                    <router-link :to="{ name: 'Info' }" class="nav-link"><fa :icon="['fas', 'question']"/></router-link>
                               </li>
+                              <li class="nav-item">
+                                   <router-link :to="{ name: 'ErrorPage' }" class="nav-link"><fa :icon="['fas', 'comment-dots']"/></router-link>
+                              </li>
                               <li v-if="!user" class="nav-item">
                                    <router-link :to="{ name: 'Register' }" class="nav-link"><fa :icon="['fas', 'sign-in']"/></router-link>
                               </li>
@@ -32,7 +35,6 @@
                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                                         <li><router-link :to="{ name: 'UserData' }" class="dropdown-item">Adataim módosíása</router-link></li>
                                         <li><router-link :to="{ name: 'MyLocationsPage' }" class="dropdown-item">Helyeim módosíása</router-link></li>
-                                        <li><router-link :to="{ name: 'ErrorPage' }" class="dropdown-item">Hibajelentés</router-link></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a @click="signOut" class="dropdown-item" href="#">Kijelentkezés</a></li>
                                    </ul>
@@ -68,11 +70,6 @@ export default {
                     })
                     
                this.$store.dispatch('user', response.data)
-               if (this.user.permission == 2) {
-                    console.log("admin")
-               } else {
-                    console.log("semmi")
-               }
           }
      },
      

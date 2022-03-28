@@ -10,6 +10,7 @@ import ErrorPage from '../components/sites/ErrorPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
+  
   routes: [
     {
       path: '/',
