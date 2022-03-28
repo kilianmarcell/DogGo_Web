@@ -14,16 +14,16 @@ const store = createStore({
        }
   },
 
-  actions: {
-       user(context, user) {
-            context.commit('user', user)
+  mutations: { //a mutation-ben lévő metódusokkal változtatjuk meg az adatokat
+               //adatváltoztatás triggereléssel vagy committolással (a folyamat neve dispatch-elés)
+       setUser(state, user) {
+            state.user = user
        }
   },
 
-  mutations: { //a mutation-ben lévő metódusokkal változtatjuk meg az adatokat
-               //adatváltoztatás triggereléssel vagy committolással (a folyamat neve dispatch-elés)
-       user(state, user) {
-            state.user = user
+  actions: {
+       user(context, user) {
+            context.commit('setUser', user) //a user mutation-t hívja meg, a bejövő user adattal teszi egyenlővé
        }
   }
 })

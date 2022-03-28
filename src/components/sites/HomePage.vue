@@ -15,11 +15,11 @@ export default {
      name: 'HomePage',
      
      components: {
-    Text,
-    Map,
-    Locations,
-    Footer
-},
+          Text,
+          Map,
+          Locations,
+          Footer
+     },
 
      computed: {
           ...mapGetters(['user'])
