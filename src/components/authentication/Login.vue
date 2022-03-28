@@ -111,6 +111,7 @@ export default {
                             this.errorMessage = "Helytelen felhasználónév vagy jelszó!"
                         }
                     })
+
                     if (!this.error) {
                         await localStorage.setItem('token', this.token)
 
