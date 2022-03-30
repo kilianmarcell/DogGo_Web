@@ -112,15 +112,15 @@ export default {
                         }
                     })
 
-                    if (!this.error) {
-                        await localStorage.setItem('token', this.token)
+                if (!this.error) {
+                    await localStorage.setItem('token', this.token)
 
-                        let response = await axios
-                            .request({ url: 'api/user', method: 'get' })
-                                
-                        this.$store.dispatch('user', response.data)
-                        this.$router.push({ name: "Home" })
-                    }
+                    let response = await axios
+                        .request({ url: 'api/user', method: 'get' })
+                            
+                    this.$store.dispatch('user', response.data)
+                    this.$router.push({ name: "Home" })
+                }
             }
         }
     }

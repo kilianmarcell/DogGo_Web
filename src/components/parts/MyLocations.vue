@@ -1,13 +1,13 @@
 <template>
      <div class="d-grid gap-3 col-3 mx-auto mt-5 mb-5 text-inner w-75">
-        <div class="text-decoration-underline fs-2 text-center pb-3">
+        <div class="text-decoration-underline fs-1 text-center">
             Saját helyek kezelése
         </div>
-        <div class="row p-5">
+        <div class="row">
             <div v-for="l in locations" :key="l.id" class="border border-dark col-xl-4 col-md-6 col-12 p-5">
                 <div>
                     <p class="fs-2">{{ l.name }}</p>
-                    <p class="fs-2">{{ l.lat }}</p>
+                    <p class="fs-4">{{ l.lat }}</p>
                     <p class="fs-4">{{ l.lng }}</p>
                     <p class="fs-4">{{ l.description }}</p>
                 </div>
@@ -162,7 +162,7 @@ export default {
 
         async editLocation(id) {
             this.add_new = true
-            
+
             await axios
                 .get('api/locations/' + id)
                 .then(response => this.state.location = response.data)
