@@ -25,19 +25,31 @@
         <div class="border border-dark w-100 d-flex flex-column m-auto fs-4">
             <div class="row w-50 m-auto p-2">
                 <p class="w-50">Hely neve:</p>
-                <input v-model="this.location.name" class="w-50" type="text">
+                <input v-model="this.state.location.name" class="w-50" type="text">
+                <span class="text-danger text-center" v-if="v$.location.name.$error">
+                    {{ v$.location.name.$errors[0].$message }}
+                </span>
             </div>
             <div class="row w-50 m-auto p-2">
                 <p class="w-50">Hely szélessége:</p>
-                <input v-model="this.location.lat" class="w-50" type="text">
+                <input v-model="this.state.location.lat" class="w-50" type="number">
+                <span class="text-danger text-center" v-if="v$.location.lat.$error">
+                    {{ v$.location.lat.$errors[0].$message }}
+                </span>
             </div>
             <div class="row w-50 m-auto p-2">
                 <p class="w-50">Hely hosszúsága:</p>
-                <input v-model="this.location.lng" class="w-50" type="text">
+                <input v-model="this.state.location.lng" class="w-50" type="number">
+                <span class="text-danger text-center" v-if="v$.location.lng.$error">
+                    {{ v$.location.lng.$errors[0].$message }}
+                </span>
             </div>
             <div class="row w-50 m-auto p-2 mb-3">
                 <p class="w-50">Hely leírása:</p>
-                <textarea v-model="this.location.description" class="m-auto d-flex justify-content-center w-50" type="text" rows="6" cols="70"/>
+                <textarea v-model="this.state.location.description" class="m-auto d-flex justify-content-center w-50" type="text" rows="6" cols="70"/>
+                <span class="text-danger text-center" v-if="v$.location.description.$error">
+                    {{ v$.location.description.$errors[0].$message }}
+                </span>
             </div>
             <button class="m-auto btn btn-success w-50 fs-4" @click="newLocation" :disabled="saving" v-if="!add_new">Hely hozzáadása</button>
             <button class="m-auto btn btn-primary w-25 fs-4 mb-2" v-if="add_new" @click="saveLocation">Mentés</button>
@@ -49,6 +61,9 @@
 <script>
 import { mapGetters } from 'vuex'
 import axios from "axios"
+import useVuelidate from "@vuelidate/core"
+import { required, minLength, maxLength, helpers } from "@vuelidate/validators"
+import { reactive, computed } from "vue"
 
 export default {
     name: 'Locations',
@@ -57,15 +72,6 @@ export default {
         return {
             locations: [],
             bestRating: [],
-
-            location: {
-                name: "",
-                lat: null,
-                lng: null,
-                description: "",
-                allowed: false,
-                user_id: 1
-            },
 
             validations: {
                 name: true,
@@ -77,6 +83,50 @@ export default {
             add_new: false,
             saving: false,
             admin: 0
+        }
+    },
+    
+    setup() {
+        const state = reactive({
+            location: {
+                name: "",
+                lat: null,
+                lng: null,
+                description: "",
+                allowed: false,
+                user_id: null
+            },
+        })
+
+        const rules = computed(() => {
+            return {
+                location: {
+                    name: {
+                        name: helpers.withMessage('A hely neve mező kitöltése kötelező!', required),
+                        min: helpers.withMessage('A hely nevének legalább 5 karakter hoszzúnak kell lennie!', minLength(5)),
+                        max: helpers.withMessage('A hely neve legfeljebb 40 karakter hoszzú lehet!', maxLength(40))
+                    },
+
+                    lat: {
+                        required: helpers.withMessage('A szélesség mező kitöltése kötelező!', required),
+                    },
+
+                    lng: {
+                        required: helpers.withMessage('A hosszúság mező kitöltése kötelező!', required),
+                    },
+
+                    description: {
+                        max: helpers.withMessage('A leírás legfeljebb 255 karakter hoszzú lehet!', maxLength(255))
+                    }
+                }
+            }
+        })
+
+        const v$ = useVuelidate(rules, state)
+
+        return {
+            state,
+            v$
         }
     },
     
@@ -94,8 +144,8 @@ export default {
         },
     
         async newLocation() {
-            if (!this.validation()) {
-
+            this.v$.$validate()
+            if (!this.v$.$error) {
                 this.saving = true
 
                 await axios
@@ -128,11 +178,14 @@ export default {
         async saveLocation() {
             this.saving = 'disabled'
 
-            await axios
-                .put(`api/locations/${this.location.id}`, this.location)
+            this.v$.$validate()
+            if (!this.v$.$error) {
+                await axios
+                    .put(`api/locations/${this.location.id}`, this.location)
 
-            await this.loadData()
-            this.resetForm()
+                await this.loadData()
+                this.resetForm()
+            }
             this.saving = false
         },
 

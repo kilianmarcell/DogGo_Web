@@ -12,24 +12,38 @@
                     <p class="fs-4">{{ l.description }}</p>
                 </div>
             </div>
-            <div class="border border-dark w-100 mt-5 p-5 d-flex flex-column m-auto fs-3">
+            <div class="border border-dark w-100 d-flex flex-column m-auto fs-4">
                 <div class="row w-50 m-auto p-2">
                     <p class="w-50">Hely neve:</p>
-                    <input v-model="this.location.name" class="w-50" type="text">
+                    <input v-model="this.state.location.name" class="w-50" type="text">
+                    <span class="text-danger text-center" v-if="v$.location.name.$error">
+                        {{ v$.location.name.$errors[0].$message }}
+                    </span>
                 </div>
                 <div class="row w-50 m-auto p-2">
                     <p class="w-50">Hely szélessége:</p>
-                    <input v-model="this.location.lat" class="w-50" type="text">
+                    <input v-model="this.state.location.lat" class="w-50" type="number">
+                    <span class="text-danger text-center" v-if="v$.location.lat.$error">
+                        {{ v$.location.lat.$errors[0].$message }}
+                    </span>
                 </div>
                 <div class="row w-50 m-auto p-2">
                     <p class="w-50">Hely hosszúsága:</p>
-                    <input v-model="this.location.lng" class="w-50" type="text">
+                    <input v-model="this.state.location.lng" class="w-50" type="number">
+                    <span class="text-danger text-center" v-if="v$.location.lng.$error">
+                        {{ v$.location.lng.$errors[0].$message }}
+                    </span>
                 </div>
-                <div class="row w-50 m-auto p-2">
+                <div class="row w-50 m-auto p-2 mb-3">
                     <p class="w-50">Hely leírása:</p>
-                    <input v-model="this.location.description" class="w-50" type="text">
+                    <textarea v-model="this.state.location.description" class="m-auto d-flex justify-content-center w-50" type="text" rows="6" cols="70"/>
+                    <span class="text-danger text-center" v-if="v$.location.description.$error">
+                        {{ v$.location.description.$errors[0].$message }}
+                    </span>
                 </div>
-                <button class="m-auto btn btn-success w-50 fs-3" @click="newLocation" :disabled="saving" v-if="!add_new">Hely hozzáadása</button>
+                <button class="m-auto btn btn-success w-50 fs-4" @click="newLocation" :disabled="saving" v-if="!add_new">Hely hozzáadása</button>
+                <button class="m-auto btn btn-primary w-25 fs-4 mb-2" v-if="add_new" @click="saveLocation">Mentés</button>
+                <button class="m-auto btn btn-danger w-25 fs-4" v-if="add_new" @click="cancelLocation">Mégse</button>
             </div>
         </div>
     </div>
@@ -49,15 +63,6 @@ export default {
         return {
             locations: [],
 
-            location: {
-                name: "",
-                lat: null,
-                lng: null,
-                description: "",
-                allowed: false,
-                user_id: 4
-            },
-
             add_new: false,
             saving: false
         }
@@ -65,25 +70,36 @@ export default {
 
     setup() {
         const state = reactive({
-            registeredUser: {
-                username: "",
-                password: ""
-            }
+            location: {
+                name: "",
+                lat: null,
+                lng: null,
+                description: "",
+                allowed: false,
+                user_id: null
+            },
         })
 
         const rules = computed(() => {
             return {
-                registeredUser: {
-                    username: {
-                        required: helpers.withMessage('A felhasználónév mező kitöltése kötelező!', required),
-                        min: helpers.withMessage('A felhasználónévnek legalább 5 karakter hoszzúnak kell lennie!', minLength(5)),
-                        max: helpers.withMessage('A felhasználónév legfeljebb 20 karakter hoszzú lehet!', maxLength(20))
+                location: {
+                    name: {
+                        required: helpers.withMessage('A hely neve mező kitöltése kötelező!', required),
+                        min: helpers.withMessage('A hely nevének legalább 5 karakter hoszzúnak kell lennie!', minLength(5)),
+                        max: helpers.withMessage('A hely neve legfeljebb 40 karakter hoszzú lehet!', maxLength(40))
                     },
 
-                    password: {
-                        required: helpers.withMessage('A jelszó mező kitöltése kötelező!', required),
-                        min: helpers.withMessage('A jelszónak legalább 8 karakter hoszzúnak kell lennie!', minLength(8))
-                    }
+                    lat: {
+                        required: helpers.withMessage('A szélesség mező kitöltése kötelező!', required),
+                    },
+
+                    lng: {
+                        required: helpers.withMessage('A hosszúság mező kitöltése kötelező!', required),
+                    },
+
+                    description: {
+                        max: helpers.withMessage('A leírás legfeljebb 255 karakter hoszzú lehet!', maxLength(255))
+                    },
                 }
             }
         })
@@ -99,17 +115,19 @@ export default {
     methods: {
         async loadData() {
             await axios
-                .get('api/user_locations/4')
+                .get('api/user_locations/' + 3)
                 .then(response => (this.locations = response.data))
                 .catch(error => console.log(error))
         },
     
         async newLocation() {
-            if (!this.validation()) {
+            this.v$.$validate()
+            if (!this.v$.$error) {
                 this.saving = true
+                this.location.user_id = this.user.id
 
                 await axios
-                    .post('api/user_locations', this.location)
+                    .post('api/user_locations', this.state.location)
                     .catch(error => console.log(error))
 
                 await this.loadData()
@@ -138,11 +156,14 @@ export default {
         async saveLocation() {
             this.saving = 'disabled'
 
-            await axios
-                .put(`api/user_locations/${this.location.id}`, this.location)
+            this.v$.$validate()
+            if (!this.v$.$error) {
+                await axios
+                    .put(`api/user_locations/${this.location.id}`, this.location)
 
-            await this.loadData()
-            this.resetForm()
+                await this.loadData()
+                this.resetForm()
+            }
             this.saving = false
         },
 
@@ -157,7 +178,7 @@ export default {
                 lng: null,
                 description: "",
                 allowed: false,
-                user_id: this.user.id
+                user_id: null
             },
 
             this.add_new = false
@@ -173,7 +194,3 @@ export default {
      }
 }
 </script>
-
-<style>
-
-</style>
