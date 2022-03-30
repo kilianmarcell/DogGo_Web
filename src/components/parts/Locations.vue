@@ -15,7 +15,7 @@
                     <p class="fs-4 m-1">Szélesség: <i>{{ l.lng }}</i></p>
                     <p class="fs-4 m-1 mb-2">Leírás: {{ l.description }}</p>
                     <p class="fs-4 m-1 mb-4" v-if="l.atlag != null"><fa :icon="['fas', 'star']"/> {{ l.atlag }}</p>
-                    <button class="btn btn-primary fs-5 m-1 w-100" @click="checkLocationRating(l.id)">Értékelések megtekintése</button>
+                    <button class="btn btn-primary fs-5 m-1 w-100" @click="checkLocationRating(l.id)">Hely megtekintése</button>
                     <div v-if="this.admin">
                         <button class="btn btn-primary fs-5 m-1 w-100 mt-4" @click="editLocation(l.id)">Hely szerkesztése</button>
                         <button class="btn btn-danger fs-5 m-1 w-100" @click="deleteLocation(l.id)">Hely törlése</button>
