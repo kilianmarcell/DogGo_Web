@@ -6,7 +6,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Text from '../layouts/Text.vue'
+import Text from '../parts/Text.vue'
 import Map from '../parts/Map.vue'
 import Locations from '../parts/Locations.vue'
 import Footer from '../layouts/Footer.vue'

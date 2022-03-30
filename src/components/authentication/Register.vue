@@ -158,7 +158,6 @@ export default {
                                 this.$router.go(-1)
                             }
                         })
-
                 }
             }
         }
