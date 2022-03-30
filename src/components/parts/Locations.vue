@@ -9,8 +9,8 @@
             </div>
         </article>
         <div class="row">
-            <article class="card bg-dark col-12 col-md-6 col-xl-4 p-5 mb-2 border-0" v-for="l in locations" :key="l.id">
-                <div class="card-body ">
+            <article class="card bg-dark col-12 col-md-6 col-xl-4 p-5 border-0" v-for="l in locations" :key="l.id">
+                <div class="card-body">
                     <p class="fs-2 mb-3">{{ l.name }}</p>
                     <p class="fs-4 m-1">Hosszúság: <i>{{ l.lat }}</i></p>
                     <p class="fs-4 m-1">Szélesség: <i>{{ l.lng }}</i></p>
@@ -22,55 +22,27 @@
                 </div>
             </article>
         </div>
-    <table>
-        <thead>
-            <tr>
-                <th v-if="this.admin">Azonosító</th>
-                <th>Név</th>
-                <th>Szélesség</th>
-                <th>Hosszúság</th>
-                <th>Leírás</th>
-            </tr>
-        </thead>
-        <tbody class="fs-5">
-                <tr v-for="l in locations" :key="l.id">
-                    <td v-if="this.admin">{{ l.id }}</td>
-                    <td>{{ l.name }}</td>
-                    <td>{{ l.lat }}</td>
-                    <td>{{ l.lng }}</td>
-                    <td>{{ l.description }}</td>
-                    <td v-if="user">
-                        <button class="btn btn-danger fs-5" @click="deleteLocation(l.id)">Törlés</button>
-                        <br>
-                        <button class="btn btn-primary fs-5" @click="editLocation(l.id)">Szerkesztés</button>
-                    </td>
-                </tr>
-                <tr v-if="user">
-                    <td></td>
-                    <td>
-                        <span :class="{hidden: this.validations.name}">A név mező kitöltése kötelező, a név legalább 5 karakter legyen!</span><br>
-                        <input type="text fs-5" v-model="location.name">
-                    </td>
-                    <td>
-                        <span :class="{hidden: this.validations.lat}">A lat mező kitöltése kötelező!</span><br>
-                        <input type="number fs-5" v-model="location.lat">
-                    </td>
-                    <td>
-                        <span :class="{hidden: this.validations.lng}">A lng mező kitöltése kötelező!</span><br>
-                        <input type="number fs-5" v-model="location.lng">
-                    </td>
-                    <td>
-                        <span :class="{hidden: this.validations.description}">A description mező kitöltése kötelező!</span><br>
-                        <input type="text" v-model="location.description"></td>
-                    <td>
-                        <button class="btn btn-success" @click="newLocation" :disabled="saving" v-if="!add_new">Hozzáadás</button>
-                        <button class="btn btn-primary" v-if="add_new" @click="saveLocation">Mentés</button>
-                        <br>
-                        <button class="btn btn-danger" v-if="add_new" @click="cancelLocation">Mégse</button>
-                    </td>
-                </tr>
-        </tbody>
-    </table>
+        <div class="border border-dark w-100 d-flex flex-column m-auto fs-4">
+            <div class="row w-50 m-auto p-2">
+                <p class="w-50">Hely neve:</p>
+                <input v-model="this.location.name" class="w-50" type="text">
+            </div>
+            <div class="row w-50 m-auto p-2">
+                <p class="w-50">Hely szélessége:</p>
+                <input v-model="this.location.lat" class="w-50" type="text">
+            </div>
+            <div class="row w-50 m-auto p-2">
+                <p class="w-50">Hely hosszúsága:</p>
+                <input v-model="this.location.lng" class="w-50" type="text">
+            </div>
+            <div class="row w-50 m-auto p-2 mb-3">
+                <p class="w-50">Hely leírása:</p>
+                <textarea v-model="this.location.description" class="m-auto d-flex justify-content-center w-50" type="text" rows="6" cols="70"/>
+            </div>
+            <button class="m-auto btn btn-success w-50 fs-4" @click="newLocation" :disabled="saving" v-if="!add_new">Hely hozzáadása</button>
+            <button class="m-auto btn btn-primary w-25 fs-4 mb-2" v-if="add_new" @click="saveLocation">Mentés</button>
+            <button class="m-auto btn btn-danger w-25 fs-4" v-if="add_new" @click="cancelLocation">Mégse</button>
+        </div>
     </div>
 </template>
 
@@ -84,7 +56,7 @@ export default {
     data() {
         return {
             locations: [],
-            bestRating: [{ name: "", atlag: ""}],
+            bestRating: [],
 
             location: {
                 name: "",
@@ -119,8 +91,6 @@ export default {
                 .get('api/best_rating')
                 .then(response => (this.bestRating = response.data))
                 .catch(error => console.log(error))
-
-            console.log(this.bestRating)
         },
     
         async newLocation() {
