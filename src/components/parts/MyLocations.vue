@@ -11,6 +11,10 @@
                     <p class="fs-4">{{ l.lng }}</p>
                     <p class="fs-4">{{ l.description }}</p>
                 </div>
+                <div>
+                    <button class="btn btn-primary fs-5 m-1 w-50" @click="editLocation(l.id)" v-if="!add_new">Szerkesztés</button>
+                    <button class="btn btn-danger fs-5 m-1 w-50" @click="deleteLocation(l.id)" v-if="!add_new">Törlés</button>
+                </div>
             </div>
             <div class="border border-dark w-100 d-flex flex-column m-auto fs-4">
                 <div class="row w-50 m-auto p-2">
@@ -113,9 +117,19 @@ export default {
     },
     
     methods: {
+        changeUserId() {
+            if (this.user != null) {
+                this.state.location.user_id = this.user.id
+            } else {
+                this.$router.push({ name: "Home" })
+            }
+
+            this.loadData()
+        },
+
         async loadData() {
             await axios
-                .get('api/user_locations/' + 3)
+                .get('api/user_locations/' + this.state.location.user_id)
                 .then(response => (this.locations = response.data))
                 .catch(error => console.log(error))
         },
@@ -124,10 +138,9 @@ export default {
             this.v$.$validate()
             if (!this.v$.$error) {
                 this.saving = true
-                this.location.user_id = this.user.id
 
                 await axios
-                    .post('api/user_locations', this.state.location)
+                    .post('api/locations', this.state.location)
                     .catch(error => console.log(error))
 
                 await this.loadData()
@@ -139,7 +152,7 @@ export default {
 
         async deleteLocation(id) {
             await axios
-                .delete(`api/user_locations/${id}`)
+                .delete(`api/locations/${id}`)
                 .catch(error => console.log(error))
 
             await this.loadData()
@@ -149,8 +162,11 @@ export default {
 
         async editLocation(id) {
             this.add_new = true
-            let response = await fetch(`api/user_locations/${id}`)
-            this.location = await response.json()
+            
+            await axios
+                .get('api/locations/' + id)
+                .then(response => this.state.location = response.data)
+                .catch(error => console.log(error))
         },
 
         async saveLocation() {
@@ -159,7 +175,7 @@ export default {
             this.v$.$validate()
             if (!this.v$.$error) {
                 await axios
-                    .put(`api/user_locations/${this.location.id}`, this.location)
+                    .put(`api/locations/${this.state.location.id}`, this.state.location)
 
                 await this.loadData()
                 this.resetForm()
@@ -172,13 +188,13 @@ export default {
         },
 
         resetForm() {
-            this.location = {
+            this.state.location = {
                 name: "",
                 lat: null,
                 lng: null,
                 description: "",
                 allowed: false,
-                user_id: null
+                user_id: this.user.id
             },
 
             this.add_new = false
@@ -186,7 +202,7 @@ export default {
     },
 
     mounted() {
-        this.loadData()
+        this.changeUserId()
     },
 
      computed: {
