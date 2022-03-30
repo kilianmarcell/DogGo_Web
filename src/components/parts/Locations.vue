@@ -14,7 +14,9 @@
                     <p class="fs-2 mb-3">{{ l.name }}</p>
                     <p class="fs-4 m-1">Hosszúság: <i>{{ l.lat }}</i></p>
                     <p class="fs-4 m-1">Szélesség: <i>{{ l.lng }}</i></p>
-                    <p class="fs-4 m-1 mb-3">Leírás: {{ l.description }}</p>
+                    <p class="fs-4 m-1 mb-2">Leírás: {{ l.description }}</p>
+                    <p class="fs-4 m-1 mb-3" v-if="l.atlag != null">Értékelés: {{ l.atlag }}</p>
+                    <button class="btn btn-primary fs-5 m-1 w-50">Megtekintés</button>
                     <div v-if="this.admin">
                         <button class="btn btn-primary fs-5 m-1 w-50" @click="editLocation(l.id)">Szerkesztés</button>
                         <button class="btn btn-danger fs-5 m-1 w-50" @click="deleteLocation(l.id)">Törlés</button>
@@ -71,6 +73,7 @@ export default {
     data() {
         return {
             locations: [],
+
             bestRating: [],
 
             validations: {
@@ -141,6 +144,18 @@ export default {
                 .get('api/best_rating')
                 .then(response => (this.bestRating = response.data))
                 .catch(error => console.log(error))
+
+            let response = await axios
+                .get('api/locations_avgrating')
+
+                console.log(response.data)
+                console.log(this.locations)
+                
+            let i = 0
+            while (i < response.data.length) {
+                this.locations[response.data[i].id - 1].atlag = response.data[i].atlag
+                i++
+            }
         },
     
         async newLocation() {
