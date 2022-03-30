@@ -152,7 +152,7 @@ export default {
 
         async deleteLocation(id) {
             await axios
-                .delete(`api/locations/${id}`)
+                .delete('api/locations/' + id)
                 .catch(error => console.log(error))
 
             await this.loadData()

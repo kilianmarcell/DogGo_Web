@@ -1,7 +1,6 @@
 <template>
-    <div id="locs" class="mb-5 text-inner">
-        <p class="fs-1 text-center text-decoration-underline text-uppercase">Helyek</p>
-        <article class="card bg-dark col-12 col-md-6 col-xl-4 p-5 mb-2 border-0">
+    <div id="locs" class="text-inner mb-5">
+        <article class="card bg-dark pb-5 mb-2 border-0">
             <div class="card-body">
                 <p class="fs-1 text-center mb-3"><fa :icon="['fas', 'trophy']"/></p>
                 <p class="fs-2 text-center">{{ this.bestRating.name }}</p>
@@ -15,11 +14,11 @@
                     <p class="fs-4 m-1">Hosszúság: <i>{{ l.lat }}</i></p>
                     <p class="fs-4 m-1">Szélesség: <i>{{ l.lng }}</i></p>
                     <p class="fs-4 m-1 mb-2">Leírás: {{ l.description }}</p>
-                    <p class="fs-4 m-1 mb-3" v-if="l.atlag != null">Értékelés: {{ l.atlag }}</p>
-                    <button class="btn btn-primary fs-5 m-1 w-50">Megtekintés</button>
+                    <p class="fs-4 m-1 mb-4" v-if="l.atlag != null"><fa :icon="['fas', 'star']"/> {{ l.atlag }}</p>
+                    <button class="btn btn-primary fs-5 m-1 w-100">Értékelések megtekintése</button>
                     <div v-if="this.admin">
-                        <button class="btn btn-primary fs-5 m-1 w-50" @click="editLocation(l.id)">Szerkesztés</button>
-                        <button class="btn btn-danger fs-5 m-1 w-50" @click="deleteLocation(l.id)">Törlés</button>
+                        <button class="btn btn-primary fs-5 m-1 w-100 mt-4" @click="editLocation(l.id)">Hely szerkesztése</button>
+                        <button class="btn btn-danger fs-5 m-1 w-100" @click="deleteLocation(l.id)">Hely törlése</button>
                     </div>
                 </div>
             </article>
@@ -53,9 +52,10 @@
                     {{ v$.location.description.$errors[0].$message }}
                 </span>
             </div>
-            <button class="m-auto btn btn-success w-50 fs-4" @click="newLocation" :disabled="saving" v-if="!add_new">Hely hozzáadása</button>
-            <button class="m-auto btn btn-primary w-25 fs-4 mb-2" v-if="add_new" @click="saveLocation">Mentés</button>
-            <button class="m-auto btn btn-danger w-25 fs-4" v-if="add_new" @click="cancelLocation">Mégse</button>
+            <div class="row d-flex justify-content-center">
+                <button class="m-2 btn btn-danger w-25 fs-5" v-if="add_new" @click="cancelLocation">Mégse</button>
+                <button class="m-2 btn btn-primary w-25 fs-5" v-if="add_new" @click="saveLocation">Mentés</button>
+            </div>
         </div>
     </div>
 </template>
@@ -73,15 +73,7 @@ export default {
     data() {
         return {
             locations: [],
-
             bestRating: [],
-
-            validations: {
-                name: true,
-                lat: true,
-                lng: true,
-                description: true,
-            },
 
             add_new: false,
             saving: false,
@@ -157,37 +149,23 @@ export default {
                 i++
             }
         },
-    
-        async newLocation() {
-            this.v$.$validate()
-            if (!this.v$.$error) {
-                this.saving = true
-
-                await axios
-                    .post('api/locations', this.location)
-                    .catch(error => console.log(error))
-
-                await this.loadData()
-                
-                this.saving = false
-                this.resetForm()
-            }
-        },
 
         async deleteLocation(id) {
             await axios
-                .delete(`api/locations/${id}`)
+                .delete('api/locations/' + id)
                 .catch(error => console.log(error))
 
             await this.loadData()
-
             this.resetForm()
         },
 
         async editLocation(id) {
             this.add_new = true
-            let response = await fetch(`api/locations/${id}`)
-            this.location = await response.json()
+
+            await axios
+                .get('api/locations/' + id)
+                .then(response => this.state.location = response.data)
+                .catch(error => console.log(error))
         },
 
         async saveLocation() {
@@ -196,7 +174,7 @@ export default {
             this.v$.$validate()
             if (!this.v$.$error) {
                 await axios
-                    .put(`api/locations/${this.location.id}`, this.location)
+                    .put('api/locations/' + this.state.location.id, this.state.location)
 
                 await this.loadData()
                 this.resetForm()
@@ -209,13 +187,12 @@ export default {
         },
 
         resetForm() {
-            this.location = {
+            this.state.location = {
                 name: "",
                 lat: null,
                 lng: null,
                 description: "",
-                allowed: false,
-                user_id: 1
+                allowed: false
             },
 
             this.add_new = false
