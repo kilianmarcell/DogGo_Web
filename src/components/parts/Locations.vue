@@ -7,7 +7,11 @@
                     <p class="fs-2 mb-3">{{ l.name }}</p>
                     <p class="fs-4 m-1">Hosszúság: <i>{{ l.lat }}</i></p>
                     <p class="fs-4 m-1">Szélesség: <i>{{ l.lng }}</i></p>
-                    <p class="fs-4 m-1">Leírás: {{ l.description }}</p>
+                    <p class="fs-4 m-1 mb-3">Leírás: {{ l.description }}</p>
+                    <div v-if="this.admin">
+                        <button class="btn btn-primary fs-5 m-1 w-50" @click="editLocation(l.id)">Szerkesztés</button>
+                        <button class="btn btn-danger fs-5 m-1 w-50" @click="deleteLocation(l.id)">Törlés</button>
+                    </div>
                 </div>
             </article>
         </div>
@@ -167,6 +171,11 @@ export default {
 
     mounted() {
         this.loadData()
+        if (this.user != null) {
+            if (this.user.permission == 2) {
+                this.admin = 1
+            }
+        }
     },
 
      computed: {
