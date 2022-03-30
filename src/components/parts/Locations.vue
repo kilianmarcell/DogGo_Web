@@ -15,7 +15,7 @@
                     <p class="fs-4 m-1">Szélesség: <i>{{ l.lng }}</i></p>
                     <p class="fs-4 m-1 mb-2">Leírás: {{ l.description }}</p>
                     <p class="fs-4 m-1 mb-4" v-if="l.atlag != null"><fa :icon="['fas', 'star']"/> {{ l.atlag }}</p>
-                    <button class="btn btn-primary fs-5 m-1 w-100">Értékelések megtekintése</button>
+                    <button class="btn btn-primary fs-5 m-1 w-100" @click="checkLocationRating(l.id)">Értékelések megtekintése</button>
                     <div v-if="this.admin">
                         <button class="btn btn-primary fs-5 m-1 w-100 mt-4" @click="editLocation(l.id)">Hely szerkesztése</button>
                         <button class="btn btn-danger fs-5 m-1 w-100" @click="deleteLocation(l.id)">Hely törlése</button>
@@ -23,7 +23,7 @@
                 </div>
             </article>
         </div>
-        <div class="border border-dark w-100 d-flex flex-column m-auto fs-4">
+        <div v-if="editing" class="border border-dark w-100 d-flex flex-column m-auto fs-4">
             <div class="row w-50 m-auto p-2">
                 <p class="w-50">Hely neve:</p>
                 <input v-model="this.state.location.name" class="w-50" type="text">
@@ -53,8 +53,8 @@
                 </span>
             </div>
             <div class="row d-flex justify-content-center">
-                <button class="m-2 btn btn-danger w-25 fs-5" v-if="add_new" @click="cancelLocation">Mégse</button>
-                <button class="m-2 btn btn-primary w-25 fs-5" v-if="add_new" @click="saveLocation">Mentés</button>
+                <button class="m-2 btn btn-danger w-25 fs-5" v-if="editing" @click="cancelLocation">Mégse</button>
+                <button class="m-2 btn btn-primary w-25 fs-5" v-if="editing" @click="saveLocation">Mentés</button>
             </div>
         </div>
     </div>
@@ -75,7 +75,7 @@ export default {
             locations: [],
             bestRating: [],
 
-            add_new: false,
+            editing: false,
             saving: false,
             admin: 0
         }
@@ -139,15 +139,16 @@ export default {
 
             let response = await axios
                 .get('api/locations_avgrating')
-
-                console.log(response.data)
-                console.log(this.locations)
                 
             let i = 0
             while (i < response.data.length) {
                 this.locations[response.data[i].id - 1].atlag = response.data[i].atlag
                 i++
             }
+        },
+
+        async checkLocationRating(id) {
+            this.$router.push({ name: 'RatingsPage', params: { ratingId: id }})
         },
 
         async deleteLocation(id) {
@@ -160,7 +161,7 @@ export default {
         },
 
         async editLocation(id) {
-            this.add_new = true
+            this.editing = true
 
             await axios
                 .get('api/locations/' + id)
@@ -195,12 +196,13 @@ export default {
                 allowed: false
             },
 
-            this.add_new = false
+            this.editing = false
         }
     },
 
     mounted() {
         this.loadData()
+
         if (this.user != null) {
             if (this.user.permission == 2) {
                 this.admin = 1

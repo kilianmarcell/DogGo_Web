@@ -7,6 +7,7 @@ import InfoPage from '../components/sites/InfoPage.vue'
 import UserDataPage from '../components/sites/UserDataPage.vue'
 import MyLocationsPage from '../components/sites/MyLocationsPage.vue'
 import ErrorPage from '../components/sites/ErrorPage.vue'
+import RatingsPage from '../components/sites/RatingsPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -46,6 +47,11 @@ const router = createRouter({
       path: '/hibajelentes',
       name: 'ErrorPage',
       component: ErrorPage
+    },
+    {
+      path: '/ertekelesek',
+      name: 'RatingsPage',
+      component: RatingsPage
     }
   ]
 })
