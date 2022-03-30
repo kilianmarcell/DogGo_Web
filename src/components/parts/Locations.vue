@@ -1,9 +1,16 @@
 <template>
     <div id="locs" class="mb-5 text-inner">
         <p class="fs-1 text-center text-decoration-underline text-uppercase">Helyek</p>
+        <article class="card bg-dark col-12 col-md-6 col-xl-4 p-5 mb-2 border-0">
+            <div class="card-body">
+                <p class="fs-1 text-center mb-3"><fa :icon="['fas', 'trophy']"/></p>
+                <p class="fs-2 text-center">{{ this.bestRating.name }}</p>
+                <p class="fs-2 text-center"><fa :icon="['fas', 'star']"/> {{ this.bestRating.atlag }}</p>
+            </div>
+        </article>
         <div class="row">
-            <article class="card col-12 col-md-6 col-xl-4 p-0 mb-2 border-0" v-for="l in locations" :key="l.id">
-                <div class="card-body bg-dark">
+            <article class="card bg-dark col-12 col-md-6 col-xl-4 p-5 mb-2 border-0" v-for="l in locations" :key="l.id">
+                <div class="card-body ">
                     <p class="fs-2 mb-3">{{ l.name }}</p>
                     <p class="fs-4 m-1">Hosszúság: <i>{{ l.lat }}</i></p>
                     <p class="fs-4 m-1">Szélesség: <i>{{ l.lng }}</i></p>
@@ -77,6 +84,7 @@ export default {
     data() {
         return {
             locations: [],
+            bestRating: [{ name: "", atlag: ""}],
 
             location: {
                 name: "",
@@ -106,6 +114,13 @@ export default {
                 .get('api/locations')
                 .then(response => (this.locations = response.data))
                 .catch(error => console.log(error))
+                
+            await axios
+                .get('api/best_rating')
+                .then(response => (this.bestRating = response.data))
+                .catch(error => console.log(error))
+
+            console.log(this.bestRating)
         },
     
         async newLocation() {
