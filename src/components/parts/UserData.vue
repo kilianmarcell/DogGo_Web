@@ -96,20 +96,21 @@ export default {
             if (!this.v$.$error) {
                 await axios
                     .put('api/users/' + this.user.id, this.state.modifyUser)
+                    .then(this.error = false)
                     .catch(error => {
                         if (error.response.status == 422) {
                             this.errorMessage = "Ilyen felhasználó már létezik!"
                             this.error = true
                         }
                     })
-            }
 
-            if (!this.error) {
-                await axios
-                    .request({ url: 'api/user', method: 'get' })
-                    .then(response => this.$store.dispatch('user', response.data))
-                    
-                this.$router.go(-1)
+                if (!this.error) {
+                    await axios
+                        .request({ url: 'api/user', method: 'get' })
+                        .then(response => this.$store.dispatch('user', response.data))
+                        
+                    this.$router.go(-1)
+                }
             }
         }
     },
