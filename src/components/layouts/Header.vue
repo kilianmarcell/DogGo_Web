@@ -35,7 +35,6 @@
                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdown">
                                         <li><router-link :to="{ name: 'UserData' }" class="dropdown-item">Adataim módosíása</router-link></li>
                                         <li><router-link :to="{ name: 'MyLocationsPage' }" class="dropdown-item">Helyeim módosíása</router-link></li>
-                                        <li><router-link :to="{ name: 'MyRatingsPage' }" class="dropdown-item">Értékeléseim módosíása</router-link></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a @click="signOut" class="dropdown-item" href="#">Kijelentkezés</a></li>
                                    </ul>

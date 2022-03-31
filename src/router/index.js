@@ -8,7 +8,6 @@ import UserDataPage from '../components/sites/UserDataPage.vue'
 import MyLocationsPage from '../components/sites/MyLocationsPage.vue'
 import ErrorPage from '../components/sites/ErrorPage.vue'
 import RatingsPage from '../components/sites/RatingsPage.vue'
-import MyRatingsPage from '../components/sites/MyRatingsPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -53,11 +52,6 @@ const router = createRouter({
       path: '/ertekelesek',
       name: 'RatingsPage',
       component: RatingsPage
-    },
-    {
-      path: '/sajat_ertekelesek',
-      name: 'MyRatingsPage',
-      component: MyRatingsPage
     }
   ]
 })

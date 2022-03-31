@@ -16,8 +16,13 @@
                          <fa class="float-start mb-2" v-for="r in r.stars" :key="r.stars" :icon="['fas', 'star']"/>
                     </div>
                </div>
+               <div v-if="r.user_id == user.id" class="w-100 mt-3 float-start">
+                    <button class="btn btn-primary fs-5 m-1 w-50" @click="editRating(r.id)">Értékelés szerkesztése</button>
+                    <button class="btn btn-danger fs-5 m-1 w-50" @click="deleteRating(r.id)">Értékelés törlése</button>
+               </div>
           </div>
-          <div v-if="this.user && !this.sent" class="text-inner w-75 d-flex flex-column m-auto fs-4">
+
+          <div v-if="this.user && !this.sent && !this.editing" class="text-inner w-75 d-flex flex-column m-auto fs-4">
                <p class="fs-3 text-center text-decoration-underline">Mi a véleménye a helyről?</p>
                <div class="w-100 m-auto p-2 mb-2">
                     <p class="m-auto w-75 mb-1">Szöveges értékelés:</p>
@@ -27,7 +32,6 @@
                     </span>
                </div>
                <div class="w-75 m-auto p-2 mb-2">
-                    <p class="m-auto mb-1">5-ös skálán értékelés (1 = rossz, 5 = jó):</p>
                     <select v-model="this.state.stars" class="w-25">
                          <option>1</option>
                          <option>2</option>
@@ -35,7 +39,7 @@
                          <option>4</option>
                          <option>5</option>
                     </select>
-                    <span class="text-danger text-center" v-if="v$.stars.$error">
+                    <span class="text-danger text-center float-end" v-if="v$.stars.$error">
                     {{ v$.stars.$errors[0].$message }}
                     </span>
                </div>
@@ -43,7 +47,34 @@
                     <button class="btn btn-primary w-50 fs-5" @click="addRating">Vélemény közzététele</button>
                </div>
           </div>
-          <div v-if="this.sent" class="text-inner w-75 d-flex flex-column m-auto fs-4">
+
+          <div v-if="this.user && this.editing" class="text-inner w-75 d-flex flex-column m-auto fs-4">
+               <p class="fs-3 text-center text-decoration-underline">Értékelés módosítása</p>
+               <div class="w-100 m-auto p-2 mb-2">
+                    <p class="m-auto w-75 mb-1">Szöveges értékelés:</p>
+                    <textarea v-model="this.state.description" class="m-auto d-flex justify-content-center w-75" type="text" rows="6" cols="70"/>
+                    <span class="text-danger text-center" v-if="v$.description.$error">
+                    {{ v$.description.$errors[0].$message }}
+                    </span>
+               </div>
+               <div class="w-75 m-auto p-2 mb-2">
+                    <select v-model="this.state.stars" class="w-25">
+                         <option>1</option>
+                         <option>2</option>
+                         <option>3</option>
+                         <option>4</option>
+                         <option>5</option>
+                    </select>
+                    <span class="text-danger text-center float-end" v-if="v$.stars.$error">
+                    {{ v$.stars.$errors[0].$message }}
+                    </span>
+               </div>
+               <div class="row m-auto d-flex justify-content-center w-100 mb-3 button-box">
+                    <button class="btn btn-danger w-25 fs-5 mx-2" @click="cancelEdit">Mégsem</button>
+                    <button class="btn btn-primary w-25 fs-5 mx-2" @click="changeRating">Vélemény módosítása</button>
+               </div>
+          </div>
+          <div v-if="this.sent && this.show" class="text-inner w-75 d-flex flex-column m-auto fs-4">
                <div v-if="this.error == 1" class="alert alert-success m-auto fs-4 w-75">
                     {{ this.message }}
                </div>
@@ -74,7 +105,10 @@ export default {
                value: null,
                message: "",
                error: 2,
-               sent: false
+               sent: false,
+               editing: false,
+               show: true,
+               id: null
           }
      },
      
@@ -91,7 +125,7 @@ export default {
                },
 
                stars: {
-                    required: helpers.withMessage('A skálás értékelés kitöltése kötelező!', required)
+                    required: helpers.withMessage('A skálás értékelés választása kötelező!', required)
                }
             }
         })
@@ -141,11 +175,63 @@ export default {
                                    this.message = "Valami hiba történt"
                                    this.error = 0
                               }
+                              this.show = true
                          })
                     .catch(error => console.log(this.error))
                }
 
                this.loadDatas()
+          },
+
+          async editRating(id) {
+               this.editing = true
+               this.id = id
+               this.show = false
+
+               await axios
+                    .get('api/ratings/' + id)
+                    .then(response => {
+                         this.state.description = response.data.description,
+                         this.state.stars = response.data.stars
+                    })
+                    .catch(error => console.log(error))
+          },
+
+          async changeRating() {
+               this.v$.$validate()
+               if (!this.v$.$error) {
+                    await axios
+                    .put('api/ratings/' + this.id, {
+                         description: this.state.description,
+                         location_id: this.locationRatingId,
+                         user_id: this.user.id,
+                         stars: parseInt(this.state.stars)
+                    })
+               }
+
+               await this.loadDatas()
+               this.resetForm()
+               this.saving = false
+          },
+
+          cancelEdit() {
+               this.editing = false
+               this.resetForm()
+          },
+
+          async deleteRating(id) {
+               await axios
+                    .delete('api/ratings/' + id)
+                    .catch(error => console.log(error))
+
+               await this.loadDatas()
+               this.resetForm()
+          },
+
+          resetForm() {
+               this.state.description = ""
+               this.state.stars = null
+               this.editing = false
           }
      },
 
