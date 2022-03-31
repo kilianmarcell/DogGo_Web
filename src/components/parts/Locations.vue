@@ -207,7 +207,7 @@ export default {
         this.loadData()
 
         if (this.user != null) {
-            if (this.user.permission == 2) {
+            if (this.user.permission == 2 || this.user.permission == 3) {
                 this.admin = 1
             }
         }
