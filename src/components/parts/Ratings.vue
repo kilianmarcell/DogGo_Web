@@ -16,7 +16,7 @@
                          <fa class="float-start mb-2" v-for="r in r.stars" :key="r.stars" :icon="['fas', 'star']"/>
                     </div>
                </div>
-               <div v-if="r.user_id == user.id" class="w-100 mt-3 float-start">
+               <div v-if="this.user && r.user_id == user.id" class="w-100 mt-3 float-start">
                     <button class="btn btn-primary fs-5 m-1 w-50" @click="editRating(r.id)">Értékelés szerkesztése</button>
                     <button class="btn btn-danger fs-5 m-1 w-50" @click="deleteRating(r.id)">Értékelés törlése</button>
                </div>
