@@ -1,6 +1,6 @@
 <template>
     <div id="locs" class="text-inner mb-5">
-        <article class="card bg-dark pb-5 mb-2 border-0">
+        <article class="card bg-dark mb-2 border-0">
             <div class="card-body">
                 <p class="fs-1 text-center mb-3"><fa :icon="['fas', 'trophy']"/></p>
                 <p class="fs-2 text-center">{{ this.bestRating.name }}</p>
@@ -10,10 +10,10 @@
         <div class="row">
             <article class="card bg-dark col-12 col-md-6 col-xl-4 p-5 border-0" v-for="l in locations" :key="l.id">
                 <div class="card-body">
-                    <p class="fs-2 mb-3">{{ l.name }}</p>
+                    <p class="fs-2 mb-2">{{ l.name }}</p>
                     <p class="fs-4 m-1">Szélesség: <i>{{ l.lat }}</i></p>
                     <p class="fs-4 m-1">Hosszúság: <i>{{ l.lng }}</i></p>
-                    <p class="fs-4 m-1 mb-2">Leírás: {{ l.description }}</p>
+                    <p class="fs-4 m-1 mt-4 mb-4">{{ l.description }}</p>
                     <p class="fs-4 m-1 mb-4" v-if="l.atlag != null"><fa :icon="['fas', 'star']"/> {{ l.atlag }}</p>
                     <button class="btn btn-primary fs-5 m-1 w-100" @click="checkLocationRating(l.id)">Hely megtekintése</button>
                     <div v-if="this.admin">
