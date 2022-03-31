@@ -62,10 +62,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import axios from "axios"
-import useVuelidate from "@vuelidate/core"
-import { required, minLength, maxLength, helpers } from "@vuelidate/validators"
-import { reactive, computed } from "vue"
+import axios from 'axios'
+import useVuelidate from '@vuelidate/core'
+import { required, minLength, maxLength, helpers } from '@vuelidate/validators'
+import { reactive, computed } from 'vue'
 
 export default {
     name: 'Locations',
