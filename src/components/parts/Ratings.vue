@@ -26,6 +26,13 @@
                     {{ v$.description.$errors[0].$message }}
                     </span>
                </div>
+               <div class="w-75 m-auto p-2 mb-2">
+                    <p class="m-auto mb-1">5-ös skálán értékelés (1 = rossz, 5 = jó):</p>
+                    <input class="m-auto" type="number" min="1" max="5" v-model="this.state.stars">
+                    <span class="text-danger text-center" v-if="v$.stars.$error">
+                    {{ v$.stars.$errors[0].$message }}
+                    </span>
+               </div>
                <div class="row m-auto d-flex justify-content-end w-75">
                     <button class="btn btn-primary w-50 fs-5" @click="addRating">Vélemény közzététele</button>
                </div>
@@ -37,7 +44,7 @@
 import { mapGetters } from 'vuex'
 import axios from 'axios'
 import useVuelidate from '@vuelidate/core'
-import { maxLength, helpers } from '@vuelidate/validators'
+import { required, maxLength, helpers } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 
 export default {
@@ -55,13 +62,18 @@ export default {
      
      setup() {
         const state = reactive({
-             description: ""
+             description: "",
+             stars: null
         })
 
         const rules = computed(() => {
             return {
                description: {
                     max: helpers.withMessage('A leírás legfeljebb 255 karakter hoszzú lehet!', maxLength(255))
+               },
+
+               stars: {
+                    required: helpers.withMessage('A skálás értékelés kitöltése kötelező!', required)
                }
             }
         })
@@ -100,9 +112,18 @@ export default {
                          description: this.state.description,
                          location_id: this.locationRatingId,
                          user_id: this.user.id,
-                         stars: 2
+                         stars: this.state.stars
                     })
-                    .then(response => console.log(response))
+                    .then(response => {
+                              if (response.status == 201) {
+                                   this.message = "Üzenet sikeresen elküldve"
+                                   this.error = 1
+                                   this.sent = 1
+                              } else {
+                                   this.message = "Az üzenet nincs elküldve"
+                                   this.error = 0
+                              }
+                         })
                     .catch(error => console.log(this.error))
                }
 
