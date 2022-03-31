@@ -42,12 +42,6 @@
                <div class="row m-auto d-flex justify-content-end w-75 mb-3">
                     <button class="btn btn-primary w-50 fs-5" @click="addRating">Vélemény közzététele</button>
                </div>
-               <div v-if="this.error == 1" class="alert alert-success m-auto fs-4 w-75">
-                    {{ this.message }}
-               </div>
-               <div v-if="this.error == 0" class="alert alert-danger m-auto fs-4 w-75">
-                    {{ this.message }}
-               </div>
           </div>
           <div v-if="this.sent" class="text-inner w-75 d-flex flex-column m-auto fs-4">
                <div v-if="this.error == 1" class="alert alert-success m-auto fs-4 w-75">
