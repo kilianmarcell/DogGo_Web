@@ -17,7 +17,7 @@
                     </div>
                </div>
           </div>
-          <div v-if="this.user" class="text-inner w-75 d-flex flex-column m-auto fs-4">
+          <div v-if="this.user && !this.sent" class="text-inner w-75 d-flex flex-column m-auto fs-4">
                <p class="fs-3 text-center text-decoration-underline">Mi a véleménye a helyről?</p>
                <div class="w-100 m-auto p-2 mb-2">
                     <p class="m-auto w-75 mb-1">Szöveges értékelés:</p>
@@ -28,15 +28,35 @@
                </div>
                <div class="w-75 m-auto p-2 mb-2">
                     <p class="m-auto mb-1">5-ös skálán értékelés (1 = rossz, 5 = jó):</p>
-                    <input class="m-auto" type="number" min="1" max="5" v-model="this.state.stars">
+                    <select v-model="this.state.stars" class="w-25">
+                         <option>1</option>
+                         <option>2</option>
+                         <option>3</option>
+                         <option>4</option>
+                         <option>5</option>
+                    </select>
                     <span class="text-danger text-center" v-if="v$.stars.$error">
                     {{ v$.stars.$errors[0].$message }}
                     </span>
                </div>
-               <div class="row m-auto d-flex justify-content-end w-75">
+               <div class="row m-auto d-flex justify-content-end w-75 mb-3">
                     <button class="btn btn-primary w-50 fs-5" @click="addRating">Vélemény közzététele</button>
                </div>
-        </div>
+               <div v-if="this.error == 1" class="alert alert-success m-auto fs-4 w-75">
+                    {{ this.message }}
+               </div>
+               <div v-if="this.error == 0" class="alert alert-danger m-auto fs-4 w-75">
+                    {{ this.message }}
+               </div>
+          </div>
+          <div v-if="this.sent" class="text-inner w-75 d-flex flex-column m-auto fs-4">
+               <div v-if="this.error == 1" class="alert alert-success m-auto fs-4 w-75">
+                    {{ this.message }}
+               </div>
+               <div v-if="this.error == 0" class="alert alert-danger m-auto fs-4 w-75">
+                    {{ this.message }}
+               </div>
+          </div>
      </div>
 </template>
 
@@ -56,7 +76,11 @@ export default {
                ratings: [],
                locationRating: [],
                locationData: [],
-               myRating: []
+               myRating: [],
+               value: null,
+               message: "",
+               error: 2,
+               sent: false
           }
      },
      
@@ -112,15 +136,15 @@ export default {
                          description: this.state.description,
                          location_id: this.locationRatingId,
                          user_id: this.user.id,
-                         stars: this.state.stars
+                         stars: parseInt(this.state.stars)
                     })
                     .then(response => {
                               if (response.status == 201) {
-                                   this.message = "Üzenet sikeresen elküldve"
+                                   this.message = "Értékelés sikeresen közzétéve!"
                                    this.error = 1
                                    this.sent = 1
                               } else {
-                                   this.message = "Az üzenet nincs elküldve"
+                                   this.message = "Valami hiba történt"
                                    this.error = 0
                               }
                          })
@@ -148,3 +172,9 @@ export default {
      }
 }
 </script>
+
+<style scoped>
+     .option {
+          color: rgb(0, 0, 0);
+     }
+</style>
