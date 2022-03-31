@@ -11,8 +11,8 @@
             <article class="card bg-dark col-12 col-md-6 col-xl-4 p-5 border-0" v-for="l in locations" :key="l.id">
                 <div class="card-body">
                     <p class="fs-2 mb-3">{{ l.name }}</p>
-                    <p class="fs-4 m-1">Hosszúság: <i>{{ l.lat }}</i></p>
-                    <p class="fs-4 m-1">Szélesség: <i>{{ l.lng }}</i></p>
+                    <p class="fs-4 m-1">Szélesség: <i>{{ l.lat }}</i></p>
+                    <p class="fs-4 m-1">Hosszúság: <i>{{ l.lng }}</i></p>
                     <p class="fs-4 m-1 mb-2">Leírás: {{ l.description }}</p>
                     <p class="fs-4 m-1 mb-4" v-if="l.atlag != null"><fa :icon="['fas', 'star']"/> {{ l.atlag }}</p>
                     <button class="btn btn-primary fs-5 m-1 w-100" @click="checkLocationRating(l.id)">Hely megtekintése</button>
