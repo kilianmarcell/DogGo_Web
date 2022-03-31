@@ -139,12 +139,15 @@ export default {
 
             let response = await axios
                 .get('api/locations_avgrating')
-                
-            let i = 0
-            while (i < response.data.length) {
-                this.locations[response.data[i].id - 1].atlag = response.data[i].atlag
-                i++
+
+            for (let i = 0; i < response.data.length; i++) {
+                for (let j = 0; j < this.locations.length; j++) {
+                    if (this.locations[j].id == response.data[i].id) {
+                        this.locations[j].atlag = response.data[i].atlag
+                    }
+                }
             }
+
         },
 
         async checkLocationRating(id) {
