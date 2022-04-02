@@ -68,7 +68,7 @@ export default {
 
             if (!this.error) {
                 await localStorage.setItem('token', this.token)
-                this.$router.push({ name: "Home" })
+                this.$router.go()
             }
         }
     }
