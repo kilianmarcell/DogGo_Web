@@ -31,10 +31,10 @@
 </template>
 
 <script>
-import axios from "axios"
-import useVuelidate from "@vuelidate/core"
-import { required, maxLength, helpers } from "@vuelidate/validators"
-import { reactive, computed } from "vue"
+import axios from 'axios'
+import useVuelidate from '@vuelidate/core'
+import { required, maxLength, helpers } from '@vuelidate/validators'
+import { reactive, computed } from 'vue'
 
 export default {
      name: 'Error',

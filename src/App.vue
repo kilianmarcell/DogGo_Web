@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import Header from './components/layouts/Header.vue'
 import Text from './components/parts/Text.vue'
 import Map from './components/parts/Map.vue'

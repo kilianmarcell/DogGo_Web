@@ -4,7 +4,6 @@ import router from './router/index'
 import 'bootstrap/dist/css/bootstrap.css'
 import './axios'
 import store from './vuex'
-
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
