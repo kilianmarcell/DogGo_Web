@@ -47,29 +47,28 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { mapGetters } from 'vuex'
-import axios from "axios"
 
 export default {
      name: 'Header',
 
      methods: {
-          signOut() {
+          async signOut() {
                localStorage.removeItem('token')
                this.$store.dispatch('user', null)
-               this.$router.push({ name: "Home" })
+               this.$router.go()
           },
 
           async getUserDatas() {
-               let response = await axios
+               await axios
                     .request({ url: 'api/user', method: 'get' })
+                    .then(response => this.$store.dispatch('user', response.data))
                     .catch(error => {
                          if (error.response.status == 401) {
                               localStorage.removeItem('token')
                          }
                     })
-                    
-               this.$store.dispatch('user', response.data)
           }
      },
      

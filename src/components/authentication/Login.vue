@@ -35,18 +35,13 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from 'axios'
 
 export default {
     name: 'Login',
     
     data() {
         return {
-            user: {
-                id: null,
-                email: "",
-                username: ""
-            },
             registeredUser: {
                 username: "",
                 password: ""
@@ -61,9 +56,10 @@ export default {
         async login() {
             await axios
                 .post('api/login', this.registeredUser)
-                .then(response => (this.token = response.data.token))
+                .then(response => this.token = response.data.token)
                 .then(this.error = false)
                 .catch(error => {
+                    console.log(error.status)
                     if (error.response.status == 401) {
                         this.error = true
                         this.errorMessage = "Helytelen felhasználónév vagy jelszó!"
@@ -72,11 +68,6 @@ export default {
 
             if (!this.error) {
                 await localStorage.setItem('token', this.token)
-
-                let response = await axios
-                    .request({ url: 'api/user', method: 'get' })
-                        
-                this.$store.dispatch('user', response.data)
                 this.$router.push({ name: "Home" })
             }
         }

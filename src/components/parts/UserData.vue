@@ -41,10 +41,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import axios from "axios"
-import useVuelidate from "@vuelidate/core"
-import { required, minLength, maxLength, email, helpers } from "@vuelidate/validators"
-import { reactive, computed } from "vue"
+import axios from 'axios'
+import useVuelidate from '@vuelidate/core'
+import { required, minLength, maxLength, email, helpers } from '@vuelidate/validators'
+import { reactive, computed } from 'vue'
 
 export default {
     name: 'UserData',
@@ -115,7 +115,9 @@ export default {
         },
 
         loadUserDatas() {
-            if (this.user != null) {
+            if (this.user == null) {
+                this.$router.push({ name: "Home" })
+            } else {
                 this.state.modifyUser.username = this.user.username
                 this.state.modifyUser.email = this.user.email
             }

@@ -18,30 +18,6 @@ export default {
     Header,
     Text,
     Map
-},
-
-  data() {
-      return {
-            user: null
-      }
-  },
-
-  methods: {
-      async getUserDatas() {
-        let response = await axios
-            .request({
-              url: 'api/user',
-              method: 'get'
-            })
-            
-        this.$store.dispatch('user', response.data)
-      }
-  },
-  
-  mounted() {
-      if (localStorage.getItem('token') != null) {
-        this.getUserDatas()
-      }
   }
 }
 </script>

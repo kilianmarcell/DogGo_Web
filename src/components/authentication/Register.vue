@@ -69,10 +69,10 @@
 </template>
 
 <script>
-import axios from "axios"
-import useVuelidate from "@vuelidate/core"
-import { required, minLength, maxLength, email, sameAs, helpers } from "@vuelidate/validators"
-import { reactive, computed } from "vue"
+import axios from 'axios'
+import useVuelidate from '@vuelidate/core'
+import { required, minLength, maxLength, email, sameAs, helpers } from '@vuelidate/validators'
+import { reactive, computed } from 'vue'
 
 export default {
     name: 'Register',
@@ -153,11 +153,7 @@ export default {
                     await axios
                         .request({ url: 'api/user', method: 'get' })
                         .then(response => this.$store.dispatch('user', response.data))
-                        .catch(error => {
-                            if (error.response.status == 401) {
-                                this.$router.go(-1)
-                            }
-                        })
+                        .catch(error => console.log(error))
                 }
             }
         }

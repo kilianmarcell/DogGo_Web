@@ -18,10 +18,6 @@ const store = createStore({
                //adatváltoztatás triggereléssel vagy committolással (a folyamat neve dispatch-elés)
        setUser(state, user) {
             state.user = user
-       },
-
-       clearUser(state) {
-            state.user = null
        }
   },
 
