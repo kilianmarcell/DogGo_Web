@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 import useVuelidate from '@vuelidate/core'
 import { required, minLength, maxLength, email, helpers } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'

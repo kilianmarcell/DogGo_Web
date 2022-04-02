@@ -150,10 +150,7 @@ export default {
                         .post('api/login', this.state.registerUser)
                         .then(response => (localStorage.setItem('token', response.data.token)))
 
-                    await axios
-                        .request({ url: 'api/user', method: 'get' })
-                        .then(response => this.$store.dispatch('user', response.data))
-                        .catch(error => console.log(error))
+                    this.$router.go()
                 }
             }
         }
