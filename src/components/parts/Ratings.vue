@@ -10,7 +10,7 @@
                <p v-if="this.locationRating.atlag" class="fs-4"><fa :icon="['fas', 'star']"/> {{ this.locationRating.atlag }}</p>
           </div>
           <div v-for="r in ratings" :key="r.id" class="text-inner w-75 fs-4 mb-3">
-               <p class="fs-3"><b>{{ r.userName }}</b></p>
+               <p class="fs-3"><b>{{ r.username }}</b></p>
                <p>{{ r.description }}</p>
                <div class="row float-start">
                     <div class="col p-2 px-3" >
@@ -100,7 +100,6 @@ export default {
           return {
                locationRatingId: null,
                ratings: [],
-               users: [],
                locationRating: [],
                locationData: [],
                myRating: [],
@@ -143,24 +142,9 @@ export default {
      methods: {
           async loadDatas() {
                await axios
-                    .get('api/rating_by_location/' + this.locationRatingId)
+                    .get('api/rating_by_location_with_username/' + this.locationRatingId)
                     .then(response => this.ratings = response.data)
                     .catch(error => console.log(error))
-
-               for (let i = 0; i < this.ratings.length; i++) {
-                    await axios
-                         .get('api/users/' + this.ratings[i].user_id)
-                         .then(response => this.users.push(response.data))
-                         .catch(error => console.log(error))
-               }
-
-               for (let i = 0; i < this.users.length; i++) {
-                    for (let j = 0; j < this.ratings.length; j++) {
-                         if (this.ratings[j].user_id == this.users[i].id) {
-                              this.ratings[j].userName = this.users[i].username
-                         }
-                    }
-               }
 
                await axios
                     .get('api/location_avgrating/' + this.locationRatingId)
