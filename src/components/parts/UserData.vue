@@ -112,7 +112,18 @@ export default {
                     this.$router.go(-1)
                 }
             }
+        },
+
+        loadUserDatas() {
+            if (this.user != null) {
+                this.state.modifyUser.username = this.user.username
+                this.state.modifyUser.email = this.user.email
+            }
         }
+    },
+
+    mounted() {
+        this.loadUserDatas()
     },
 
     computed: {

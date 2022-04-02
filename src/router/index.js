@@ -1,14 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import HomePage from '../components/sites/HomePage.vue'
-import RegisterPage from '../components/sites/RegisterPage.vue'
-import LoginPage from '../components/sites/LoginPage.vue'
-import InfoPage from '../components/sites/InfoPage.vue'
-import UserDataPage from '../components/sites/UserDataPage.vue'
-import MyLocationsPage from '../components/sites/MyLocationsPage.vue'
-import ErrorPage from '../components/sites/ErrorPage.vue'
-import RatingsPage from '../components/sites/RatingsPage.vue'
-
 const router = createRouter({
   history: createWebHistory(),
   
@@ -16,42 +7,42 @@ const router = createRouter({
     {
       path: '/',
       name: 'Home',
-      component: HomePage
+      component: () => import('../components/sites/HomePage.vue')
     },
     {
       path: '/regisztracio',
       name: 'Register',
-      component: RegisterPage
+      component: () => import('../components/sites/RegisterPage.vue')
     },
     {
       path: '/bejelentkezes',
       name: 'Login',
-      component: LoginPage
+      component: () => import('../components/sites/LoginPage.vue')
     },
     {
       path: '/doggoinformacio',
       name: 'Info',
-      component: InfoPage
+      component: () => import('../components/sites/InfoPage.vue')
     },
     {
       path: '/felhasznalo',
       name: 'UserData',
-      component: UserDataPage
+      component: () => import('../components/sites/UserDataPage.vue')
     },
     {
       path: '/helyek',
       name: 'MyLocationsPage',
-      component: MyLocationsPage
+      component: () => import('../components/sites/MyLocationsPage.vue')
     },
     {
       path: '/hibajelentes',
       name: 'ErrorPage',
-      component: ErrorPage
+      component: () => import('../components/sites/ErrorPage.vue')
     },
     {
       path: '/ertekelesek',
       name: 'RatingsPage',
-      component: RatingsPage
+      component: () => import('../components/sites/RatingsPage.vue')
     }
   ]
 })
