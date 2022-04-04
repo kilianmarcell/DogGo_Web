@@ -54,7 +54,7 @@
                 </span>
             </div>
 
-            <div v-if="this.error" class="alert alert-danger d-flex align-items-center">
+            <div v-if="this.error" class="alert alert-danger d-flex align-items-center mt-3">
                 {{ this.errorMessage }}
             </div>
         </div>
