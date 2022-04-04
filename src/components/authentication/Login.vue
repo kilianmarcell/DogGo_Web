@@ -75,7 +75,7 @@ export default {
     },
 
     mounted() {
-        if (this.user) {
+        if (localStorage.getItem('token') != null) {
             this.$router.push({ name: 'Home' })
         }
     },
