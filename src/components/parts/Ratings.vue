@@ -26,14 +26,14 @@
           <div v-if="this.user && !this.sent && !this.editing" class="text-inner w-75 d-flex flex-column m-auto fs-4">
                <p class="fs-3 text-center text-decoration-underline">Mi a véleménye a helyről?</p>
                <div class="w-100 m-auto p-2 mb-2">
-                    <p class="m-auto w-75 mb-1">Szöveges értékelés:</p>
-                    <textarea v-model="this.state.description" class="m-auto d-flex justify-content-center w-75" type="text" rows="6" cols="70"/>
+                    <textarea v-model="this.state.description" placeholder="Szöveges vélemény" class="m-auto d-flex justify-content-center w-75" type="text" rows="6" cols="70"/>
                     <span class="text-danger text-center" v-if="v$.description.$error">
                     {{ v$.description.$errors[0].$message }}
                     </span>
                </div>
                <div class="w-75 m-auto p-2 mb-2">
                     <select v-model="this.state.stars" class="w-25">
+                         <option disabled selected hidden>Skálás értékelés</option>
                          <option>1</option>
                          <option>2</option>
                          <option>3</option>
@@ -126,7 +126,7 @@ export default {
                },
 
                stars: {
-                    required: helpers.withMessage('A skálás értékelés választása kötelező!', required)
+                    required: helpers.withMessage('A skálás értékelés kitöltése kötelező!', required)
                }
             }
         })
