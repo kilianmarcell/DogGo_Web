@@ -31,6 +31,7 @@
                 zoom: 7
             }
         },
+
         created() {
             if(localStorage.center) {
                 this.myCoordinates = JSON.parse(localStorage.center);
@@ -45,9 +46,11 @@
                 this.zoom = parseInt(localStorage.zoom);
             }
         },
+
         mounted() {
             this.$refs.mapRef.$mapPromise.then(map => this.map = map);
         },
+
         methods: {
             handleDrag() {
                 let center = {
@@ -59,6 +62,7 @@
                 localStorage.zoom = zoom;
             }
         },
+        
         computed: {
             mapCoordinates() {
                 if(!this.map) {

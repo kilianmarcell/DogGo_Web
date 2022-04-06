@@ -148,8 +148,6 @@ export default {
                 }
             }
 
-            
-
             if (this.user != null) {
                 if (this.user.permission == 2 || this.user.permission == 3) {
                     this.admin = 1
