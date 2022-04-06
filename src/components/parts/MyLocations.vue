@@ -47,7 +47,7 @@
                 </div>
                 <button class="m-auto btn btn-success w-50 fs-4" @click="newLocation" :disabled="saving" v-if="!add_new">Hely hozzáadása</button>
                 <button class="m-auto btn btn-primary w-25 fs-4 mb-2" v-if="add_new" @click="saveLocation">Mentés</button>
-                <button class="m-auto btn btn-danger w-25 fs-4" v-if="add_new" @click="cancelLocation">Mégse</button>
+                <button class="m-auto btn btn-danger w-25 fs-4" v-if="add_new" @click="resetForm">Mégse</button>
             </div>
         </div>
     </div>
@@ -66,7 +66,6 @@ export default {
      data() {
         return {
             locations: [],
-
             add_new: false,
             saving: false
         }
@@ -181,10 +180,6 @@ export default {
                 this.resetForm()
             }
             this.saving = false
-        },
-
-        cancelLocation() {
-            this.resetForm()
         },
 
         resetForm() {

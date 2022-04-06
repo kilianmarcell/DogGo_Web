@@ -102,8 +102,6 @@ export default {
                ratings: [],
                locationRating: [],
                locationData: [],
-               myRating: [],
-               value: null,
                message: "",
                error: 2,
                sent: false,
