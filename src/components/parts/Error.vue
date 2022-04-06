@@ -43,7 +43,7 @@ export default {
           return {
                message: "",
                error: 2,
-               sent: 0
+               sent: false
           }
      },
      
@@ -83,7 +83,7 @@ export default {
                               if (response.status == 201) {
                                    this.message = "Üzenet sikeresen elküldve"
                                    this.error = 1
-                                   this.sent = 1
+                                   this.sent = true
                               } else {
                                    this.message = "Az üzenet nincs elküldve"
                                    this.error = 0

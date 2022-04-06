@@ -56,16 +56,16 @@ export default {
     methods: {
         async login() {
             await axios
-            .post('api/login', this.registeredUser)
-            .then(response => this.token = response.data.token)
-            .then(this.error = false)
-            .catch(error => {
-                console.log(error.status)
-                if (error.response.status == 401) {
-                    this.error = true
-                    this.errorMessage = "Helytelen felhasználónév vagy jelszó!"
-                }
-            })
+                .post('api/login', this.registeredUser)
+                .then(response => this.token = response.data.token)
+                .then(this.error = false)
+                .catch(error => {
+                    console.log(error.status)
+                    if (error.response.status == 401) {
+                        this.error = true
+                        this.errorMessage = "Helytelen felhasználónév vagy jelszó!"
+                    }
+                })
 
             if (!this.error) {
                 await localStorage.setItem('token', this.token)
