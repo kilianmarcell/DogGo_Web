@@ -98,7 +98,7 @@ export default {
                     .put('api/users/' + this.user.id, this.state.modifyUser)
                     .then(this.error = false)
                     .catch(error => {
-                        if (error.response.status == 422) {
+                        if (error.response.status == 500) {
                             this.errorMessage = "Ilyen felhasználó már létezik!"
                             this.error = true
                         }
