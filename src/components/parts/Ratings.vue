@@ -27,8 +27,8 @@
                <p class="fs-3 text-center text-decoration-underline">Mi a véleménye a helyről?</p>
                <div class="w-100 m-auto p-2 mb-2">
                     <textarea v-model="this.state.description" placeholder="Szöveges vélemény" class="m-auto d-flex justify-content-center w-75" type="text" rows="6" cols="70"/>
-                    <span class="text-danger text-center" v-if="v$.description.$error">
-                    {{ v$.description.$errors[0].$message }}
+                    <span class="text-danger d-flex justify-content-center" v-if="v$.description.$error">
+                         {{ v$.description.$errors[0].$message }}
                     </span>
                </div>
                <div class="w-75 m-auto p-2 mb-2">
@@ -41,7 +41,7 @@
                          <option>5</option>
                     </select>
                     <span class="text-danger text-center float-end" v-if="v$.stars.$error">
-                    {{ v$.stars.$errors[0].$message }}
+                         {{ v$.stars.$errors[0].$message }}
                     </span>
                </div>
                <div class="row m-auto d-flex justify-content-end w-75 mb-3">
@@ -54,8 +54,8 @@
                <div class="w-100 m-auto p-2 mb-2">
                     <p class="m-auto w-75 mb-1">Szöveges értékelés:</p>
                     <textarea v-model="this.state.description" class="m-auto d-flex justify-content-center w-75" type="text" rows="6" cols="70"/>
-                    <span class="text-danger text-center" v-if="v$.description.$error">
-                    {{ v$.description.$errors[0].$message }}
+                    <span class="text-danger d-flex justify-content-center" v-if="v$.description.$error">
+                         {{ v$.description.$errors[0].$message }}
                     </span>
                </div>
                <div class="w-75 m-auto p-2 mb-2">
@@ -67,7 +67,7 @@
                          <option>5</option>
                     </select>
                     <span class="text-danger text-center float-end" v-if="v$.stars.$error">
-                    {{ v$.stars.$errors[0].$message }}
+                         {{ v$.stars.$errors[0].$message }}
                     </span>
                </div>
                <div class="row m-auto d-flex justify-content-center w-100 mb-3 button-box">
