@@ -75,7 +75,6 @@ export default {
         return {
             locations: [],
             bestRating: [],
-
             editing: false,
             saving: false,
             admin: 0
