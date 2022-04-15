@@ -4,7 +4,7 @@
           <p><u class="fs-4">Elérhetőségek:</u></p>
                <p>
                     <fa :icon="['fas', 'envelope']"/> <i>infodoggo@gmail.com</i><br>
-                    <fa :icon="['fas', 'phone']"/> <i>+36 30 275 6435</i>
+                    <fa :icon="['fas', 'phone']"/> <i>-</i>
                </p>
        </div>
   </footer>
