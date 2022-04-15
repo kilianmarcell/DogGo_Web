@@ -40,7 +40,7 @@ const router = createRouter({
       component: () => import('../components/sites/ErrorPage.vue')
     },
     {
-      path: '/ertekelesek',
+      path: '/ertekelesek/:id',
       name: 'RatingsPage',
       component: () => import('../components/sites/RatingsPage.vue')
     }

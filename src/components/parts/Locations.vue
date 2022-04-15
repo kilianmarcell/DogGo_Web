@@ -15,10 +15,11 @@
                     <p class="fs-4 m-1">Hosszúság: <i>{{ l.lng }}</i></p>
                     <p class="fs-4 m-1 mt-4 mb-4">{{ l.description }}</p>
                     <p class="fs-4 m-1 mb-4" v-if="l.atlag != null"><fa :icon="['fas', 'star']"/> {{ l.atlag }}</p>
-                    <button class="btn btn-primary fs-5 m-1 w-100" @click="checkLocationRating(l.id)">Hely megtekintése</button>
+                    <button v-if="l.allowed == 1" class="btn btn-primary fs-5 m-1 w-100" @click="checkLocationRating(l.id)">Hely megtekintése</button>
                     <div v-if="this.admin">
                         <button class="btn btn-primary fs-5 m-1 w-100 mt-4" @click="editLocation(l.id)">Hely szerkesztése</button>
-                        <button class="btn btn-danger fs-5 m-1 w-100" @click="deleteLocation(l.id)">Hely törlése</button>
+                        <button v-if="l.allowed == 1" class="btn btn-danger fs-5 m-1 w-100" @click="bannLocation(l.id, l.name)">Hely tiltása</button>
+                        <button v-if="l.allowed == 0" class="btn btn-success fs-5 m-1 w-100" @click="enableLocation(l.id, l.name)">Hely engedélyezése</button>
                     </div>
                 </div>
             </article>
@@ -128,17 +129,30 @@ export default {
     methods: {
         async loadData() {
             await axios
-                .get('api/locations')
-                .then(response => (this.locations = response.data))
-                .catch(error => console.log(error))
-                
-            await axios
                 .get('api/best_rating')
                 .then(response => (this.bestRating = response.data))
                 .catch(error => console.log(error))
 
             let response = await axios
                 .get('api/locations_avgrating')
+
+            if (this.user != null) {
+                if (this.user.permission == 2 || this.user.permission == 3) {
+                    this.admin = 1
+                }
+            }
+            
+            if (this.admin == 1) {
+                await axios
+                    .get('api/locations')
+                    .then(response => (this.locations = response.data))
+                    .catch(error => console.log(error))
+            } else {
+                await axios
+                    .get('api/locations_allowed')
+                    .then(response => (this.locations = response.data))
+                    .catch(error => console.log(error))
+            }
 
             for (let i = 0; i < response.data.length; i++) {
                 for (let j = 0; j < this.locations.length; j++) {
@@ -147,21 +161,24 @@ export default {
                     }
                 }
             }
-
-            if (this.user != null) {
-                if (this.user.permission == 2 || this.user.permission == 3) {
-                    this.admin = 1
-                }
-            }
         },
 
         async checkLocationRating(id) {
-            this.$router.push({ name: 'RatingsPage', params: { ratingId: id }})
+            this.$router.push({ name: 'RatingsPage', params: { id: id }})
         },
 
-        async deleteLocation(id) {
+        async bannLocation(id, locName) {
             await axios
-                .delete('api/locations/' + id)
+                .put('api/locations/' + id, { name: locName , allowed: 0 })
+                .catch(error => console.log(error))
+
+            await this.loadData()
+            this.resetForm()
+        },
+
+        async enableLocation(id, locName) {
+            await axios
+                .put('api/locations/' + id, { name: locName, allowed: 1 })
                 .catch(error => console.log(error))
 
             await this.loadData()

@@ -17,9 +17,9 @@
                          <fa class="float-start mb-2" v-for="r in r.stars" :key="r.stars" :icon="['fas', 'star']"/>
                     </div>
                </div>
-               <div v-if="this.user && r.user_id == user.id" class="w-100 mt-3 float-start">
-                    <button class="btn btn-primary fs-5 m-1 w-50" @click="editRating(r.id)">Értékelés szerkesztése</button>
-                    <button class="btn btn-danger fs-5 m-1 w-50" @click="deleteRating(r.id)">Értékelés törlése</button>
+               <div  class="w-100 mt-3 float-start">
+                    <button v-if="this.user && r.user_id == user.id" class="btn btn-primary fs-5 m-1 w-50" @click="editRating(r.id)">Értékelés szerkesztése</button>
+                    <button v-if="this.admin || this.user && r.user_id == user.id" class="btn btn-danger fs-5 m-1 w-50" @click="deleteRating(r.id)">Értékelés törlése</button>
                </div>
           </div>
 
@@ -98,7 +98,6 @@ export default {
 
      data() {
           return {
-               locationRatingId: null,
                ratings: [],
                locationRating: [],
                locationData: [],
@@ -107,7 +106,8 @@ export default {
                sent: false,
                editing: false,
                show: true,
-               id: null
+               id: null,
+               admin: false
           }
      },
      
@@ -138,21 +138,45 @@ export default {
     },
 
      methods: {
+          async checkEnabledLocation() {
+               await axios
+                    .get('api/locations/' + this.$route.params.id)
+                    .then(response => {
+                         if (response.data.allowed == 0) {
+                              this.$router.push({ name: 'Home'})
+                         } else {
+                              this.loadDatas()
+                         }
+                    })
+                    .catch(error => {
+                         if (error.response.status == 404) {
+                              this.$router.push({ name: 'Home'})
+                         } else {
+                              console.log(error)
+                         }
+                    })
+          },
           async loadDatas() {
                await axios
-                    .get('api/rating_by_location_with_username/' + this.locationRatingId)
+                    .get('api/rating_by_location_with_username/' + this.$route.params.id)
                     .then(response => this.ratings = response.data)
                     .catch(error => console.log(error))
 
                await axios
-                    .get('api/location_avgrating/' + this.locationRatingId)
+                    .get('api/location_avgrating/' + this.$route.params.id)
                     .then(response => this.locationRating = response.data)
                     .catch(error => console.log(error))
                
                await axios
-                    .get('api/locations/' + this.locationRatingId)
+                    .get('api/locations/' + this.$route.params.id)
                     .then(response => (this.locationData = response.data))
                     .catch(error => console.log(error))
+
+               if (this.user != null) {
+                    if (this.user.permission == 2 || this.user.permission == 3) {
+                         this.admin = true
+                    }
+               }
           },
 
           async addRating() {
@@ -161,7 +185,7 @@ export default {
                await axios
                     .post('api/ratings', {
                          description: this.state.description,
-                         location_id: this.locationRatingId,
+                         location_id: this.$route.params.id,
                          user_id: this.user.id,
                          stars: parseInt(this.state.stars)
                     })
@@ -202,7 +226,7 @@ export default {
                     await axios
                     .put('api/ratings/' + this.id, {
                          description: this.state.description,
-                         location_id: this.locationRatingId,
+                         location_id: this.$route.params.id,
                          user_id: this.user.id,
                          stars: parseInt(this.state.stars)
                     })
@@ -235,15 +259,7 @@ export default {
      },
 
      mounted() {
-          if (this.locationRatingId == null) {
-               this.$router.push({ name: "Home" })
-          } else {
-               this.loadDatas()
-          }
-     },
-
-     created() {
-          this.locationRatingId = this.$route.params.ratingId
+          this.checkEnabledLocation()
      },
 
      computed: {

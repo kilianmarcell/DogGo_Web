@@ -57,7 +57,7 @@ export default {
           async signOut() {
                localStorage.removeItem('token')
                this.$store.dispatch('user', null)
-               this.$router.push({ name: 'Login' })
+               this.$router.go()
           },
 
           async getUserDatas() {
