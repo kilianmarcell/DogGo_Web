@@ -23,7 +23,7 @@
                </div>
           </div>
 
-          <div v-if="this.user && !this.sent && !this.editing" class="text-inner w-75 d-flex flex-column m-auto fs-4">
+          <div v-if="this.user && this.publishable && !this.sent && !this.editing" class="text-inner w-75 d-flex flex-column m-auto fs-4">
                <p class="fs-3 text-center text-decoration-underline">Mi a véleménye a helyről?</p>
                <div class="w-100 m-auto p-2 mb-2">
                     <textarea v-model="this.state.description" placeholder="Szöveges vélemény" class="m-auto d-flex justify-content-center w-75" type="text" rows="6" cols="70"/>
@@ -107,7 +107,8 @@ export default {
                editing: false,
                show: true,
                id: null,
-               admin: false
+               admin: false,
+               publishable: false
           }
      },
      
@@ -156,6 +157,7 @@ export default {
                          }
                     })
           },
+
           async loadDatas() {
                await axios
                     .get('api/rating_by_location_with_username/' + this.$route.params.id)
@@ -175,6 +177,17 @@ export default {
                if (this.user != null) {
                     if (this.user.permission == 2 || this.user.permission == 3) {
                          this.admin = true
+                    }
+
+                    let count = 0
+                    for (let i = 0; i < this.ratings.length; i++) {
+                         if (this.ratings[i].user_id == this.user.id) {
+                              count++
+                         }
+                    }
+
+                    if (count == 0) {
+                         this.publishable = true
                     }
                }
           },
