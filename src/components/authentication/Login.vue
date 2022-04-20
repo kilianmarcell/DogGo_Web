@@ -64,6 +64,9 @@ export default {
                     if (error.response.status == 401) {
                         this.error = true
                         this.errorMessage = "Helytelen felhasználónév vagy jelszó!"
+                    } else if (error.response.status == 403) {
+                        this.error = true
+                        this.errorMessage = "Ez a felhasználó tiltva van!"
                     }
                 })
 
